@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 		  
 		Product product = mapper.map(productDto, Product.class);
 		productRepository.save(product);
-		return new ApiResponse("Product :"+ product.getProductName() +" Added Successfully....");
+		return new ApiResponse("Product :"+ product.getTitle() +" Added Successfully....");
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 		Product product = productRepository.findById(productId).orElseThrow(()-> new ResourceNotFoundException("Invalid  product id !!!"));
 		productRepository.delete(product);
 		
-		return new ApiResponse("Product "+product.getProductName()+" Deleted Successfully.....");
+		return new ApiResponse("Product "+product.getTitle()+" Deleted Successfully.....");
 	}
 
 }

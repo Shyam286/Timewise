@@ -77,6 +77,13 @@ public class JwtService {
 	      return Keys.hmacShaKeyFor(keyBytes);
 	  }
 
+	 //-------temp 
+	  public Boolean validateToken(String token, UserDetails userDetails) {
+	      final String username = extractUserName(token);
+	      return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	  }
+	  //--------------temp end
+	  
 //	
 //	public String extractUsername(String token) {
 //		return extractClaim(token, Claims::getSubject);

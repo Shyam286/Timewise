@@ -51,9 +51,12 @@ public class User extends BaseEntity implements  UserDetails{
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	 @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-		private List<Address> addresses = new ArrayList<>();
-		 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	private List<Address> addresses = new ArrayList<>();
+	
+	@OneToOne(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+	private Cart cart;
+	 
 		public User(String firstname, String lastname, String email, String password, Long mobileNo, LocalDate registerDate,
 				Role role) {
 			super();

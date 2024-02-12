@@ -19,7 +19,7 @@ import com.watcher.service.UserService;
 import io.jsonwebtoken.io.IOException;
 
 @RestController
-@RequestMapping
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
@@ -29,6 +29,12 @@ public class UserController {
 	@GetMapping("/view")
 	public String viewProducts() {
 		return "any one can view the products!!!!!!!!!";
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/demo")
+	public ResponseEntity<String> sayHello(){
+		return ResponseEntity.ok("Hello everyOne");
 	}
 	
 	  // any authenticated user should be able to browse the categories

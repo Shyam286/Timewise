@@ -15,8 +15,12 @@ import lombok.Setter;
 public class ProductDto {
 	
 	private int id;
+	private String title;
 	private String description;
 	private int price;
+	private int discountedPrice;
+
+	
 	private int quantity;
 	
 	private byte[] image1; 
@@ -24,10 +28,6 @@ public class ProductDto {
 	private byte[] image2; 
 	
 	private byte[] image3;
-	
-	private byte[] image4;
-	
-	private byte[] image5;
 
 	private String brand;
 	
@@ -41,5 +41,22 @@ public class ProductDto {
 		this.brand = brand;
 		this.color = color;
 	}
+
+	public ProductDto(String title, String description, int price, int discountedPrice, int quantity, byte[] image1,
+			byte[] image2, byte[] image3, String brand, String color) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.discountedPrice = discountedPrice;
+		this.quantity = quantity;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+		this.brand = brand;
+		this.color = color;
+	}
+	
+	
 	
 }

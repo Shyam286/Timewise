@@ -8,8 +8,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,8 @@ import com.watcher.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import  com.watcher.entity.Role;
+
 
 
 @Configuration
@@ -31,6 +35,7 @@ public class SecurityConfig {
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
+
 //	private AuthenticationProvider authenticationProvider;
 //	@Autowired
 //	private UserServiceImpl userServiceImpl;
@@ -40,14 +45,14 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		
-			http
-			.csrf()
-			.disable()
-			.authorizeHttpRequests(req ->
-             req.requestMatchers("/api/v1/auth/**")
+		System.out.println(Role.ADMIN.name()+"---------------------------"+"ADMIN");
+			
+		http
+		 	.csrf(AbstractHttpConfigurer::disable)
+         	.authorizeHttpRequests(req ->
+             req.requestMatchers("/cart/**","/product/add","/api/v1/auth/**","/view")
 				.permitAll()
-		        .requestMatchers(GET,"/demo-controller").hasRole("ADMIN")
+//				.requestMatchers("/user/demo").hasRole(Role.ADMIN.name())
 				.anyRequest()
 				.authenticated()
 			)
