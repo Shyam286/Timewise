@@ -12,10 +12,22 @@ import com.watcher.entity.User;
 @Service
 public interface UserService {
 	
-		List<UserDto> getAllUsers();
+	List<UserDto> getAllUsers();
 	
-		//delete user details
-		ApiResponse deleteUserDetails(int userId);
+	UserDto getUserById(int userId);
+	
+	UserDto updateUser(int userId, UserDto userDTO);
+	
+	String deleteUser(int userId);
+	
+	
+	
 
-		UserDto updateUser(int userId, UserDto dto);
+	
+//		List<UserDto> getAllUsers();
+//	
+//		//delete user details
+//		ApiResponse deleteUserDetails(int userId);
+//
+//		UserDto updateUser(int userId, UserDto dto);
 }

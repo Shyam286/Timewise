@@ -15,11 +15,14 @@ import lombok.Setter;
 public class ProductDto {
 	
 	private int id;
+	
 	private String title;
+	
 	private String description;
+	
 	private int price;
+	
 	private int discountedPrice;
-
 	
 	private int quantity;
 	

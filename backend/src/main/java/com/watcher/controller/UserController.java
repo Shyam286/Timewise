@@ -62,7 +62,14 @@ public class UserController {
 		@DeleteMapping("/{userId}")
 		public ResponseEntity<?> deleteUser(@PathVariable int userId) {
 			System.out.println("in update user " + userId);
-			return ResponseEntity.ok(userService.deleteUserDetails(userId));
+			return ResponseEntity.ok(userService.deleteUser(userId));
+		}
+		
+		//1. get all user details 
+		@GetMapping("/user/{userId}")
+		public ResponseEntity<?> getUserById(@PathVariable int userId) throws IOException {
+			System.out.println("-----------------------------get users" );
+			return ResponseEntity.ok(userService.getUserById(userId));
 		}
 		
 }

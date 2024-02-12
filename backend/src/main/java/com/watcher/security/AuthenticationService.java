@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.watcher.dto.AuthenticationRequest;
 import com.watcher.dto.AuthenticationResponse;
 import com.watcher.dto.RegisterRequest;
+import com.watcher.entity.Cart;
 import com.watcher.entity.Role;
 import com.watcher.entity.User;
 import com.watcher.repository.UserRepository;
@@ -40,7 +41,9 @@ public class AuthenticationService {
 	                  .registerDate(LocalDate.now())
 	                  .role(Role.USER)
 	                  .build();
-            System.out.println("----------------------three");
+            
+	        Cart cart = new Cart();
+			user.setCart(cart);
 	      user = userRepository.save(user);
 	      var jwtToken = jwtService.generateToken(user);
 	      return AuthenticationResponse.builder().token(jwtToken).build();

@@ -18,7 +18,12 @@ import lombok.ToString;
 @ToString
 public class AddressDTO {
 	
-	private String address;
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long addressId;
+	
+	private String street;
+	
+	private String buildingName;
 	
 	private String city;
 
@@ -26,7 +31,7 @@ public class AddressDTO {
 
 	private String country;
 
-	private String zipCode;
+	private String pincode;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private int userId;

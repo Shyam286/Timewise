@@ -12,5 +12,6 @@ import com.watcher.entity.User;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 
-	
+	Address findByCountryAndStateAndCityAndPincodeAndStreetAndBuildingName(String country, String state, String city,
+			String pincode, String street, String building);
 }

@@ -24,6 +24,17 @@ public class UserDto {
 	private Role role;
 	private LocalDate registerDate;
 	private CartDto cart;
+	private AddressDTO address;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 //	public UserDto(String firstname, String lastname,
 //			String email, String password, Long mobileNo, Role role) {

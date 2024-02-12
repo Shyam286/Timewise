@@ -2,10 +2,16 @@ package com.watcher.entity;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,10 +30,13 @@ import lombok.Setter;
 public class Product extends BaseEntity{
 
 	private String title;
+	
 	private String description;
+	
 	private int price;
 	
 	private int discountedPrice;
+	
 	private int quantity;
 	@Lob // large object :col : longblob
 	private byte[] image1; 
@@ -43,4 +52,9 @@ public class Product extends BaseEntity{
 	@Enumerated(EnumType.STRING)
 	private Category category;
 
+	@OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	private List<CartItem> products = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "product", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<OrderItem> orderItems = new ArrayList<>();
 }
