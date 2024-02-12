@@ -28,5 +28,19 @@ public class Cart extends BaseEntity {
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	private List<CartItem> cartItem = new ArrayList<>();
 	
-	private double totalPrice;
+	private double totalPrice = 0;
+	
+	
+	public void addCart(CartItem cartIt) {
+		System.out.println("-----------------five");
+		cartItem.add(cartIt);
+		cartIt.setCart(this);
+		System.out.println("-----------------final");
+
+	}
+	
+	public void removeCart(CartItem cartIt) {
+		cartItem.remove(cartIt);
+		cartIt.setCart(this);
+	} 
 }

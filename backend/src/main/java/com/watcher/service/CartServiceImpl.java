@@ -18,7 +18,10 @@ import com.watcher.repository.CartItemRepository;
 import com.watcher.repository.CartRepository;
 import com.watcher.repository.ProductRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional 
 public class CartServiceImpl implements CartService {
 
 	@Autowired
@@ -68,7 +71,8 @@ public class CartServiceImpl implements CartService {
 		cartItemRepository.save(newCartItem);
 
 		product.setQuantity(product.getQuantity() - quantity);
-
+		
+		cart.addCart(newCartItem);
 		cart.setTotalPrice(cart.getTotalPrice() + (product.getDiscountedPrice() * quantity));
 
 		CartDto cartDto = mapper.map(cart, CartDto.class);
@@ -93,7 +97,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public CartDto getCartById(int cartId) {
 		
-		return mapper.map(cartItemRepository.findById(cartId), CartDto.class);
+		return mapper.map(cartRepository.findById(cartId), CartDto.class);
 		
 	}
 

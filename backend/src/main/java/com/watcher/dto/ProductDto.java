@@ -1,10 +1,6 @@
 package com.watcher.dto;
 
-import java.time.LocalDate;
 
-import com.watcher.entity.Role;
-
-import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
