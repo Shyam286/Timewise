@@ -50,20 +50,26 @@ public class UserServiceImpl implements UserService {
 	public UserDto getUserById(int userId) {
 		
 		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new ResourceNotFoundException("UserId"+ userId));
+				.orElseThrow(() -> new ResourceNotFoundException("UserId---------------------------------------"+ userId));
+		System.out.println("1-----------------------"+user);
 
 		UserDto userDTO = mapper.map(user, UserDto.class);
-
-		userDTO.setAddress(mapper.map(user.getAddresses().stream().findFirst().get(), AddressDTO.class));
-
-		CartDto cart = mapper.map(user.getCart(), CartDto.class);
-
-		List<ProductDto> products = user.getCart().getCartItem().stream()
-				.map(item -> mapper.map(item.getProduct(), ProductDto.class)).collect(Collectors.toList());
-
-		userDTO.setCart(cart);
-
-		userDTO.getCart().setProduct(products);
+//		System.out.println("2-----------------------"+userDTO);
+//
+//		userDTO.setAddress(mapper.map(user.getAddresses().stream().findFirst().get(), AddressDTO.class));
+//		
+//		System.out.println("3-----------------------"+userDTO);
+//		CartDto cart = mapper.map(user.getCart(), CartDto.class);
+//		System.out.println("4-----------------------"+cart);
+//
+//		List<ProductDto> products = user.getCart().getCartItem().stream()
+//				.map(item -> mapper.map(item.getProduct(), ProductDto.class)).collect(Collectors.toList());
+//		System.out.println("5-----------------------"+products);
+//
+//		userDTO.setCart(cart);
+//
+//		userDTO.getCart().setProduct(products);
+//		System.out.println("6-----------------------"+userDTO);
 
 		return userDTO;
 	}
@@ -79,39 +85,39 @@ public class UserServiceImpl implements UserService {
 		user.setMobileNo(userDTO.getMobileNo());
 		user.setEmail(userDTO.getEmail());
 
-		if (userDTO.getAddress() != null) {
-			String country = userDTO.getAddress().getCountry();
-			String state = userDTO.getAddress().getState();
-			String city = userDTO.getAddress().getCity();
-			String pincode = userDTO.getAddress().getPincode();
-			String street = userDTO.getAddress().getStreet();
-			String buildingName = userDTO.getAddress().getBuildingName();
-
-
-			Address address = addressRepository.findByCountryAndStateAndCityAndPincodeAndStreetAndBuildingName(country, state,
-					city, pincode, street, buildingName);
-
-			if (address == null) {
-				address = new Address(country, state, city, pincode, street, buildingName);
-
-				address = addressRepository.save(address);
-
-				user.setAddresses(List.of(address));
-			}
-		}
+//		if (userDTO.getAddress() != null) {
+//			String country = userDTO.getAddress().getCountry();
+//			String state = userDTO.getAddress().getState();
+//			String city = userDTO.getAddress().getCity();
+//			String pincode = userDTO.getAddress().getPincode();
+//			String street = userDTO.getAddress().getStreet();
+//			String buildingName = userDTO.getAddress().getBuildingName();
+//
+//
+//			Address address = addressRepository.findByCountryAndStateAndCityAndPincodeAndStreetAndBuildingName(country, state,
+//					city, pincode, street, buildingName);
+//
+//			if (address == null) {
+//				address = new Address(country, state, city, pincode, street, buildingName);
+//
+//				address = addressRepository.save(address);
+//
+//				user.setAddresses(List.of(address));
+//			}
+//		}
 
 		userDTO = mapper.map(user, UserDto.class);
-
-		userDTO.setAddress(mapper.map(user.getAddresses().stream().findFirst().get(), AddressDTO.class));
-
-		CartDto cart = mapper.map(user.getCart(), CartDto.class);
-
-		List<ProductDto> products = user.getCart().getCartItem().stream()
-				.map(item -> mapper.map(item.getProduct(), ProductDto.class)).collect(Collectors.toList());
-
-		userDTO.setCart(cart);
-
-		userDTO.getCart().setProduct(products);
+//
+//		userDTO.setAddress(mapper.map(user.getAddresses().stream().findFirst().get(), AddressDTO.class));
+//
+//		CartDto cart = mapper.map(user.getCart(), CartDto.class);
+//
+//		List<ProductDto> products = user.getCart().getCartItem().stream()
+//				.map(item -> mapper.map(item.getProduct(), ProductDto.class)).collect(Collectors.toList());
+//
+//		userDTO.setCart(cart);
+//
+//		userDTO.getCart().setProduct(products);
 
 		return userDTO;	
 	}
@@ -130,27 +136,6 @@ public class UserServiceImpl implements UserService {
 
 	
 	
-	
-	
-//	@Override
-//	public List<UserDto> getAllUsers() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public ApiResponse deleteUserDetails(int userId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public UserDto updateUser(int userId, UserDto dto) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-
 //	@Override
 //	public AuthenticationResponse register(RegisterRequest request);{
 //		User user=mapper.map(reqDTO, UserEntity.class);

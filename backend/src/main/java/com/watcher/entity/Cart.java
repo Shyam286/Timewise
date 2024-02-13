@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -19,6 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="cart")
+@ToString
 public class Cart extends BaseEntity {
 
 	@OneToOne
@@ -28,7 +30,7 @@ public class Cart extends BaseEntity {
 	@OneToMany(mappedBy = "cart", orphanRemoval = true)
 	private List<CartItem> cartItem = new ArrayList<>();
 	
-	private double totalPrice = 0;
+	private double totalPrice = 0.0;
 	
 	
 	public void addCart(CartItem cartIt) {

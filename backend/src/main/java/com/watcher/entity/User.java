@@ -51,6 +51,7 @@ public class User extends BaseEntity implements  UserDetails{
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Address> addresses = new ArrayList<>();
 	

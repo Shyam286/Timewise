@@ -50,7 +50,7 @@ public class SecurityConfig {
 		http
 		 	.csrf(AbstractHttpConfigurer::disable)
          	.authorizeHttpRequests(req ->
-             req.requestMatchers("/user/**","/cart/**","/product/**","/api/v1/auth/**","/view")
+             req.requestMatchers("/user/**","/order/**","/address/**","/cart/**","/product/**","/api/v1/auth/**","/view","/v*/api-doc*/**","/swagger-ui/**")
 				.permitAll()
 //				.requestMatchers("/user/demo").hasRole(Role.ADMIN.name())
 				.anyRequest()

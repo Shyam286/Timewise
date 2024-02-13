@@ -18,7 +18,7 @@ public class ECommerceWatchesWebsiteApplication {
 	public ModelMapper mapper() {
 		ModelMapper modelMapper = new ModelMapper();		
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
-	.setPropertyCondition(Conditions.isNotNull());
+		.setSkipNullEnabled(true);
 		return modelMapper;
 	}
 	
