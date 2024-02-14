@@ -2,8 +2,8 @@ import React from 'react'
 import './ProductCard.css'
 const ProductCard = ({ product }) => {
   return (
-    <div className="ProductCard w-[15rem] m-3 transition-all cursor-pointer">
-      <div className="h-[20rem] w-100">
+    <div className="ProductCard w-[12rem] m-3 transition-all cursor-pointer">
+      <div className="h-[15rem] w-full ">
         <img
           className='h-full w-full object-cover object-left-top'
           src={product.imageUrl}
