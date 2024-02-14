@@ -27,34 +27,40 @@ export const filters =[
 
     },
 
+  
+  ]
+     
+
+export const singleFilter=[
     {
-        id:"discount",
-        name:"Discount Range",
-        options:[
-            {
-                value:'10',
-                label:'10% and above'
-            },
-            {value:'20'  , label:'20% and above'},
-            {value:'30'  , label:'30% and above'},
-            {value:'40'  , label:'40% and above'},
-            {value:'50'  , label:'50% and above'},
-            {value:'60'  , label:'60% and above'},
-            {value:'70'  , label:'70% and above'},
-            {value:'80'  , label:'80% and above'},
-            {value:'90'  , label:'90% and above'}
-        ]
+      id: "discount",
+      name: "Discount Range",
+      options: [
+        {value: "10", label: "10% And Above"},
+        { value: "20", label: "20% And Above" },
+        { value: "30", label: "30% And Above" },
+        { value: "40", label: "40% And Above" },
+        { value: "50", label: "50% And Above" },
+        { value: "60", label: "60% And Above" },
+        { value: "70", label: "70% And Above" },
+        { value: "80", label: "80% And Above" },
+      ],
     },
-
     {
-        id:"availability",
-        name:"Availability",
-        options:[
-            {value:'1'  , label:'In Stock'},
-            {value:'0'  , label:'Out of Stock'}
-        ]
+      id: "stock",
+      name: "Availability",
+      options: [
+        { value: "in_stock", label: "In Stock" },
+        { value: "out_of_stock", label: "Out Of Stock" },
+        
+      ],
     },
+  ]
 
 
-]
-
+export const sortOptions = [
+  
+    { name: "Price: Low to High", query: "price_low", current: false },
+    { name: "Price: High to Low", query: "price_high", current: false },
+  ];
+  
