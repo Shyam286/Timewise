@@ -35,7 +35,17 @@ public class SecurityConfig {
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
-
+	public static final String[] PUBLIC_URLS = {
+			"/api/v1/auth/**",
+			"/view",
+			"/v*/api-doc*/**",
+			"/swagger-ui/**",
+//			"/user/**",
+			"/order/**",
+			"/address/**",
+			"/cart/**",
+			"/product/**"
+	};
 //	private AuthenticationProvider authenticationProvider;
 //	@Autowired
 //	private UserServiceImpl userServiceImpl;
@@ -50,9 +60,9 @@ public class SecurityConfig {
 		http
 		 	.csrf(AbstractHttpConfigurer::disable)
          	.authorizeHttpRequests(req ->
-             req.requestMatchers("/user/**","/order/**","/address/**","/cart/**","/product/**","/api/v1/auth/**","/view","/v*/api-doc*/**","/swagger-ui/**")
+             req.requestMatchers(PUBLIC_URLS)
 				.permitAll()
-//				.requestMatchers("/user/demo").hasRole(Role.ADMIN.name())
+				.requestMatchers("/user/demo").hasAuthority("USER")
 				.anyRequest()
 				.authenticated()
 			)

@@ -31,7 +31,7 @@ public class UserController {
 		return "any one can view the products!!!!!!!!!";
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/demo")
 	public ResponseEntity<String> sayHello(){
 		return ResponseEntity.ok("Hello everyOne");

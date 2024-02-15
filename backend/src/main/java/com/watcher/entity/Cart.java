@@ -34,11 +34,8 @@ public class Cart extends BaseEntity {
 	
 	
 	public void addCart(CartItem cartIt) {
-		System.out.println("-----------------five");
 		cartItem.add(cartIt);
 		cartIt.setCart(this);
-		System.out.println("-----------------final");
-
 	}
 	
 	public void removeCart(CartItem cartIt) {

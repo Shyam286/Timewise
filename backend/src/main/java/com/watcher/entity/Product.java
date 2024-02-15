@@ -35,7 +35,7 @@ public class Product extends BaseEntity{
 	
 	private int price;
 	
-	private int discountedPrice;
+	private int discountedPrice=0;
 	
 	private int quantity;
 	@Lob // large object :col : longblob

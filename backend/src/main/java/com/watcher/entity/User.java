@@ -55,7 +55,7 @@ public class User extends BaseEntity implements  UserDetails{
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Address> addresses = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "user", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Cart cart;
 	 
 		public User(String firstname, String lastname, String email, String password, Long mobileNo, LocalDate registerDate,
