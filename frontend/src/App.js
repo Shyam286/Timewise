@@ -3,7 +3,8 @@ import './App.css';
 import Navigation from './customer/components/Navigation/Navigation';
 import HomePage from './pages/HomePage/HomePage';
 import Footer from './customer/components/Footer/Footer';
-import Product from './customer/components/Product/Product';
+// import Product from './customer/components/Product/Product';
+import SignIn from './pages/LoginPage/SignIn';
 
 export default function App() {
   return (
@@ -13,7 +14,11 @@ export default function App() {
           <Navigation/>
           <div>
              {/* <HomePage/> */}
-             <Product/> 
+             {/* <Product/>  */}
+             <SignIn/>
+             {/* <SignUp/> */}
+             
+
           </div>
           <Footer/>
     </div>
