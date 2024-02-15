@@ -22,7 +22,7 @@ import com.watcher.service.AddressService;
 
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/api")
 public class AddressController {
 
 	
@@ -35,7 +35,7 @@ public class AddressController {
 
 	// assign address to user
 	
-	@PostMapping("/add")
+	@PostMapping("/public/user/add")
 	public ResponseEntity<?> assignUserAddress(
 			@RequestBody AddressDTO address) {
 		System.out.println("in assign adr " + address.getUserId() + " " + address);
@@ -43,7 +43,7 @@ public class AddressController {
 	}
 
 	// get user address
-	@GetMapping("/{userId}")
+	@GetMapping("/public/user/{userId}")
 	public ResponseEntity<?> getUserAddress(@PathVariable int userId) {
 		System.out.println("in get user adr " + userId);
 		// one to one with shared PK => user id is same as adr id
@@ -51,7 +51,7 @@ public class AddressController {
 	}
 
 	// update address COMPLETE
-	@PutMapping("/{userId}")
+	@PutMapping("/public/user/{userId}")
 	public ResponseEntity<?> updateUserAddress(@PathVariable int userId,
 			@RequestBody  AddressDTO address) {
 		System.out.println("in complete update adr " + userId + " " + address);

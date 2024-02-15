@@ -17,14 +17,14 @@ import com.watcher.dto.CartDto;
 import com.watcher.service.CartService;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/api")
 public class CartController {
 
 	
 	@Autowired
 	private CartService cartService;
 	
-	@PostMapping("/carts/{cartId}/products/{productId}/quantity/{quantity}")
+	@PostMapping("/public/carts/{cartId}/products/{productId}/quantity/{quantity}")
 	public ResponseEntity<CartDto> addProductToCart(@PathVariable int cartId, @PathVariable int productId, @PathVariable int quantity) {
 		CartDto cartDTO = cartService.addProductToCart(cartId, productId, quantity);
 		
@@ -41,21 +41,21 @@ public class CartController {
 	}
 	
 	
-	@GetMapping("/user/{cartId}")
+	@GetMapping("/public/user/{cartId}")
 	public ResponseEntity<CartDto> getCartById( @PathVariable int cartId) {
 		CartDto cartDTO = cartService.getCartById(cartId);
 		
 		return new ResponseEntity<CartDto>(cartDTO, HttpStatus.FOUND);
 	}
 	
-	@PutMapping("/carts/{cartId}/products/{productId}/quantity/{quantity}")
+	@PutMapping("/public/carts/{cartId}/products/{productId}/quantity/{quantity}")
 	public ResponseEntity<CartDto> updateCartProduct(@PathVariable int cartId, @PathVariable int productId, @PathVariable int quantity) {
 		CartDto cartDTO = cartService.updateProductQuantityInCart(cartId, productId, quantity);
 		
 		return new ResponseEntity<CartDto>(cartDTO, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/carts/{cartId}/product/{productId}")
+	@DeleteMapping("/public/carts/{cartId}/product/{productId}")
 	public ResponseEntity<String> deleteProductFromCart(@PathVariable int cartId, @PathVariable int productId) {
 		String status = cartService.deleteProductFromCart(cartId, productId);
 		

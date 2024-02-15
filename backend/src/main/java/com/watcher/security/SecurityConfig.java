@@ -40,12 +40,26 @@ public class SecurityConfig {
 			"/view",
 			"/v*/api-doc*/**",
 			"/swagger-ui/**",
-//			"/user/**",
+			"/user/**",
 			"/order/**",
 			"/address/**",
 			"/cart/**",
 			"/product/**"
 	};
+	
+//	public static final String[] ADMIN_URLS= {
+//			"/api/admin/**",
+//			"/product/update/**",
+//			"/product/add",
+//			"/product/delete/**",
+//			"/order/admin/**",
+//			"/cart/admin/**",
+//			"/user/demo"
+//	};
+//	public static final String[] USER_URLS= {
+//			"/api/public/**"
+//	};
+
 //	private AuthenticationProvider authenticationProvider;
 //	@Autowired
 //	private UserServiceImpl userServiceImpl;
@@ -62,7 +76,8 @@ public class SecurityConfig {
          	.authorizeHttpRequests(req ->
              req.requestMatchers(PUBLIC_URLS)
 				.permitAll()
-				.requestMatchers("/user/demo").hasAuthority("USER")
+//				.requestMatchers(USER_URLS).hasAnyAuthority("USER", "ADMIN")
+//				.requestMatchers(ADMIN_URLS).hasAuthority("ADMIN")
 				.anyRequest()
 				.authenticated()
 			)
@@ -84,8 +99,7 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	public AuthenticationManager authenticationManager
-	(AuthenticationConfiguration config) throws Exception
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
 	{
 		return config.getAuthenticationManager();
 	}

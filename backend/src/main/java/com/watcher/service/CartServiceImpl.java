@@ -73,8 +73,10 @@ public class CartServiceImpl implements CartService {
 		product.setQuantity(product.getQuantity() - quantity);
 		
 		cart.addCart(newCartItem);
-		cart.setTotalPrice(cart.getTotalPrice() + (product.getDiscountedPrice() * quantity));
-
+//		cart.setTotalPrice(cart.getTotalPrice() + (product.getDiscountedPrice() * quantity));
+		
+		cart.setTotalPrice(product.getDiscountedPrice() * quantity);
+		
 		CartDto cartDto = mapper.map(cart, CartDto.class);
 
 		List<ProductDto> productDto = cart.getCartItem().stream()

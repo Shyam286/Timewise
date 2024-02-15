@@ -1,6 +1,7 @@
 package com.watcher.dto;
 
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,11 +23,11 @@ public class ProductDto {
 	
 	private int quantity;
 	
-	private byte[] image1; 
+	private String image1; 
 	
-	private byte[] image2; 
-	
-	private byte[] image3;
+	private String image2; 
+
+	private String image3;
 
 	private String brand;
 	
@@ -41,8 +42,8 @@ public class ProductDto {
 		this.color = color;
 	}
 
-	public ProductDto(String title, String description, int price, int discountedPrice, int quantity, byte[] image1,
-			byte[] image2, byte[] image3, String brand, String color) {
+	public ProductDto(String title, String description, int price, int discountedPrice, int quantity, String image1,
+			String image2, String image3, String brand, String color) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -55,7 +56,7 @@ public class ProductDto {
 		this.brand = brand;
 		this.color = color;
 	}
-	
+
 	
 	
 }

@@ -16,7 +16,7 @@ import com.watcher.dto.OrderDto;
 import com.watcher.service.OrderService;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/api")
 public class OrderController {
 
 	
