@@ -7,6 +7,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './customer/components/Footer/Footer';
 // import Product from './customer/components/Product/Product';
 import SignIn from './pages/LoginPage/SignIn';
+import SignUp from './pages/LoginPage/SignUp';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function App() {
   return (
@@ -19,6 +22,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage/>}/>
           <Route path="/signin" element={<SignIn/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
         </Routes>
       </BrowserRouter>
 
