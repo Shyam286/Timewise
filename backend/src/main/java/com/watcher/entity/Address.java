@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name="address")
 public class Address extends BaseEntity{
 	
-	@Column(length=20)
+	@Column(length=40)
 	private String street;
 	
 	@Column(length=30)

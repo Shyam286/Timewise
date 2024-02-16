@@ -10,5 +10,8 @@ import com.watcher.entity.Cart;
 public interface CartRepository extends JpaRepository<Cart, Integer>{
 
 	@Query("SELECT c FROM Cart c WHERE c.user.email = :emailId AND c.id = :cartId")
-	Cart findCartByEmailAndId(String emailId, int cartId);
+	public Cart findCartByEmailAndId(String emailId, int cartId);
+
+	@Query("SELECT c From Cart c where c.user.id=:userId")
+	public Cart findByUserId(int userId);
 }

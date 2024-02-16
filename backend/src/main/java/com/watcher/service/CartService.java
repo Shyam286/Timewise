@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.watcher.dto.CartDto;
 
+
 public interface CartService {
 	
 	CartDto addProductToCart(int cartId, int productId, int quantity);
 	
-	List<CartDto> getAllCarts();
 	
+	List<CartDto> getAllCarts();
+		
 	CartDto getCartById(int cartId);
 	
 	CartDto updateProductQuantityInCart(int cartId, int productId, int quantity);

@@ -14,6 +14,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,11 +34,11 @@ public class Product extends BaseEntity{
 	private String title;
 	@NotBlank
 	private String description;
-	@NotBlank
+	@NotNull
 	private int price;
-	@NotBlank
+	@NotNull
 	private int discountedPrice=0;
-	@NotBlank
+	@NotNull
 	private int quantity;
 	
 	@NotBlank
@@ -51,7 +52,7 @@ public class Product extends BaseEntity{
 	@NotBlank
 	private String color;
 	
-	@NotBlank
+
 	@Enumerated(EnumType.STRING)
 	private Category category;
 

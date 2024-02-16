@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,8 @@ import io.jsonwebtoken.io.IOException;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("http://localhost:3000")
+
 public class UserController {
 	
 	@Autowired
@@ -66,7 +69,7 @@ public class UserController {
 		}
 		
 		//1. get all user details 
-		@GetMapping("/get/{userId}")
+		@GetMapping("/user/get/{userId}")
 		public ResponseEntity<?> getUserById(@PathVariable int userId) throws IOException {
 			System.out.println("-----------------------------get users" );
 			return ResponseEntity.ok(userService.getUserById(userId));

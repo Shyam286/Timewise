@@ -40,11 +40,14 @@ public class SecurityConfig {
 			"/view",
 			"/v*/api-doc*/**",
 			"/swagger-ui/**",
-			"/user/**",
-			"/order/**",
-			"/address/**",
-			"/cart/**",
-			"/product/**"
+			"/api/user/**",
+			"/api/admin/**",
+			"/api/public/**",
+			"api/admin/**"
+//			"/order/**",
+//			"/address/**",
+//			"/cart/**",
+//			"/product/**"
 	};
 	
 //	public static final String[] ADMIN_URLS= {
@@ -89,7 +92,7 @@ public class SecurityConfig {
 
 	}
 		
-	
+	// 
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthProvider =new DaoAuthenticationProvider();

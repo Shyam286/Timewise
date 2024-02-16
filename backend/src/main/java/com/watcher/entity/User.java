@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -50,13 +48,14 @@ public class User extends BaseEntity implements  UserDetails{
 	
 	@NotBlank
 	@Email(message = "Please enter a valid email address")
+	@Column(unique = true)
 	private String email;
 	
 	@NotBlank
-	@Size(min = 8, max = 15, message = "Password must be between 8 and 15 characters")
+	//@Size(min = 8, max = 15, message = "Password must be between 8 and 15 characters")
 	private String password;
 	
-	@NotBlank
+	@NotNull
 	@Column(length = 10, unique = true)
 	private long mobileNo;
 	

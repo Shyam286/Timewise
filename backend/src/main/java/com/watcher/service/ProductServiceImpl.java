@@ -6,11 +6,14 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.watcher.custom_exception.ResourceNotFoundException;
 import com.watcher.dto.ApiResponse;
 import com.watcher.dto.ProductDto;
+import com.watcher.entity.Category;
 import com.watcher.entity.Product;
 import com.watcher.repository.ProductRepository;
 
@@ -46,6 +49,32 @@ public class ProductServiceImpl implements ProductService {
 		
 		return mapper.map(product, ProductDto.class);
 	}
+	
+	@Override
+	public List<ProductDto> getProductsByCategory(Category category) {
+		List<ProductDto> productList= productRepository.findByCategory(category)
+				.stream()
+				.map(prod -> mapper.map(prod,ProductDto.class))
+				.collect(Collectors.toList());
+		
+		 if (productList.isEmpty()) {
+	           throw new  ResourceNotFoundException("Product Not available user this category!!!");
+	        }
+		return productList;
+	}
+	
+	@Override
+	public List<ProductDto> getProductsByColor(String color) {
+		List<ProductDto> productList= productRepository.findByColor(color)
+				.stream()
+				.map(prod -> mapper.map(prod,ProductDto.class))
+				.collect(Collectors.toList());;
+		
+		 if (productList.isEmpty()) {
+	           throw new  ResourceNotFoundException("This color Product Not available ");
+	        }
+		return productList;
+	}
 
 	@Override
 	public ProductDto updateProduct(int productId, ProductDto productDto) {
@@ -64,5 +93,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		return new ApiResponse("Product "+product.getTitle()+" Deleted Successfully.....");
 	}
+
+	
 
 }

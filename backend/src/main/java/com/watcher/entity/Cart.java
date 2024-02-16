@@ -3,7 +3,9 @@ package com.watcher.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -23,11 +25,11 @@ import lombok.ToString;
 @ToString
 public class Cart extends BaseEntity {
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToMany(mappedBy = "cart", orphanRemoval = true)
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<CartItem> cartItem = new ArrayList<>();
 	
 	private double totalPrice = 0.0;

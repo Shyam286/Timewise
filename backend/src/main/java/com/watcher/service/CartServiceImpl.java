@@ -66,17 +66,15 @@ public class CartServiceImpl implements CartService {
 		newCartItem.setCart(cart);
 		newCartItem.setQuantity(quantity);
 		newCartItem.setDiscount(product.getDiscountedPrice());
-		newCartItem.setProductPrice(product.getPrice());
+		newCartItem.setPrice(product.getPrice());
 
 		cartItemRepository.save(newCartItem);
 
 		product.setQuantity(product.getQuantity() - quantity);
 		
 		cart.addCart(newCartItem);
-//		cart.setTotalPrice(cart.getTotalPrice() + (product.getDiscountedPrice() * quantity));
-		
-		cart.setTotalPrice(product.getDiscountedPrice() * quantity);
-		
+		cart.setTotalPrice(cart.getTotalPrice() + (product.getDiscountedPrice() * quantity));
+
 		CartDto cartDto = mapper.map(cart, CartDto.class);
 
 		List<ProductDto> productDto = cart.getCartItem().stream()
@@ -98,9 +96,18 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public CartDto getCartById(int cartId) {
+		Cart cart = cartRepository.findById(cartId)
+				.orElseThrow(() -> new ResourceNotFoundException("Cart Not Found"));
 		
-		return mapper.map(cartRepository.findById(cartId), CartDto.class);
+		            
+		CartDto cartDto = mapper.map(cartRepository.findById(cartId), CartDto.class);
 		
+		List<ProductDto> products = cart.getCartItem().stream()
+				.map(p -> mapper.map(p.getProduct(), ProductDto.class)).collect(Collectors.toList());
+
+		cartDto.setProduct(products);
+
+		return cartDto;
 	}
 
 	@Override
@@ -127,15 +134,15 @@ public class CartServiceImpl implements CartService {
 			throw new ApiException("Product " + product.getTitle() + " not available in the cart!!!");
 		}
 		
-		double cartPrice = cart.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity());
+		double cartPrice = cart.getTotalPrice() - (cartItem.getPrice() * cartItem.getQuantity());
 
 		product.setQuantity(product.getQuantity() + cartItem.getQuantity() - quantity);
 
-		cartItem.setProductPrice(product.getPrice());
+		cartItem.setPrice(product.getPrice());
 		cartItem.setQuantity(quantity);
 		cartItem.setDiscount(product.getDiscountedPrice());
 
-		cart.setTotalPrice(cartPrice + (cartItem.getProductPrice() * quantity));
+		cart.setTotalPrice(cartPrice + (cartItem.getPrice() * quantity));
 		cartItem = cartItemRepository.save(cartItem);
 
 		CartDto cartDto = mapper.map(cart, CartDto.class);
@@ -162,11 +169,11 @@ public class CartServiceImpl implements CartService {
 			throw new ApiException("Product " + product.getTitle() + " not available in the cart!!!");
 		}
 
-		double cartPrice = cart.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity());
+		double cartPrice = cart.getTotalPrice() - (cartItem.getPrice() * cartItem.getQuantity());
 
-		cartItem.setProductPrice(product.getPrice());
+		cartItem.setPrice(product.getPrice());
 
-		cart.setTotalPrice(cartPrice + (cartItem.getProductPrice() * cartItem.getQuantity()));
+		cart.setTotalPrice(cartPrice + (cartItem.getPrice() * cartItem.getQuantity()));
 
 		cartItem = cartItemRepository.save(cartItem);
 		
@@ -183,7 +190,7 @@ public class CartServiceImpl implements CartService {
 			throw new ResourceNotFoundException("ProductId"+productId+"Not found in Cart");
 		}
 
-		cart.setTotalPrice(cart.getTotalPrice() - (cartItem.getProductPrice() * cartItem.getQuantity()));
+		cart.setTotalPrice(cart.getTotalPrice() - (cartItem.getPrice() * cartItem.getQuantity()));
 
 		Product product = cartItem.getProduct();
 		product.setQuantity(product.getQuantity() + cartItem.getQuantity());

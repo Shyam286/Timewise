@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.watcher.dto.ApiResponse;
 import com.watcher.dto.ProductDto;
+import com.watcher.entity.Category;
+import com.watcher.entity.Product;
 
 public interface ProductService {
 	
@@ -16,7 +18,11 @@ public interface ProductService {
 	ProductDto updateProduct(int productId, ProductDto productDto);
 	
 	ApiResponse deleteProductById(int productId);
+
+	 List<ProductDto> getProductsByCategory(Category category);
 	
+	 List<ProductDto> getProductsByColor(String color);
+
 	 
 	
 }

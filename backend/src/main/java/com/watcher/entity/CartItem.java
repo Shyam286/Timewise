@@ -32,8 +32,10 @@ public class CartItem extends BaseEntity{
 
 	private int quantity;
 
-	private double discount;
+	private int discount;
 	
-	private double productPrice;
+	private double price;
+	
+	
 	
 }

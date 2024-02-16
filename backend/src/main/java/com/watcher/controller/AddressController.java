@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,6 +24,8 @@ import com.watcher.service.AddressService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("http://localhost:3000")
+
 public class AddressController {
 
 	
@@ -35,7 +38,7 @@ public class AddressController {
 
 	// assign address to user
 	
-	@PostMapping("/public/user/add")
+	@PostMapping("/public/user/address/add")
 	public ResponseEntity<?> assignUserAddress(
 			@RequestBody AddressDTO address) {
 		System.out.println("in assign adr " + address.getUserId() + " " + address);
@@ -43,7 +46,7 @@ public class AddressController {
 	}
 
 	// get user address
-	@GetMapping("/public/user/{userId}")
+	@GetMapping("/public/user/address/{userId}")
 	public ResponseEntity<?> getUserAddress(@PathVariable int userId) {
 		System.out.println("in get user adr " + userId);
 		// one to one with shared PK => user id is same as adr id
@@ -51,7 +54,7 @@ public class AddressController {
 	}
 
 	// update address COMPLETE
-	@PutMapping("/public/user/{userId}")
+	@PutMapping("/public/user/address/{userId}")
 	public ResponseEntity<?> updateUserAddress(@PathVariable int userId,
 			@RequestBody  AddressDTO address) {
 		System.out.println("in complete update adr " + userId + " " + address);

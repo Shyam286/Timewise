@@ -1,6 +1,8 @@
 package com.watcher.dto;
 
 
+import com.watcher.entity.Category;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,8 @@ public class ProductDto {
 	private String brand;
 	
 	private String color;
+	
+	private Category category;
 
 	public ProductDto(String description, int price, int quantity, String brand, String color) {
 		super();
@@ -43,7 +47,7 @@ public class ProductDto {
 	}
 
 	public ProductDto(String title, String description, int price, int discountedPrice, int quantity, String image1,
-			String image2, String image3, String brand, String color) {
+			String image2, String image3, String brand, String color, Category category) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -55,7 +59,10 @@ public class ProductDto {
 		this.image3 = image3;
 		this.brand = brand;
 		this.color = color;
+		this.category = category;
 	}
+
+	
 
 	
 	
