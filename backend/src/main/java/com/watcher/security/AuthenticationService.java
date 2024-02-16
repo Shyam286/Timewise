@@ -37,7 +37,8 @@ public class AuthenticationService {
 	                  .lastname(request.getLastname())
 	                  .email(request.getEmail())
 	                  .password(passwordEncoder.encode(request.getPassword()))
-	                  .mobileNo(request.getMobileNo())
+	                  .mobile(request.getMobile())
+	                  .age(request.getAge())
 	                  .registerDate(LocalDate.now())
 	                  .role(Role.USER)
 	                  .build();

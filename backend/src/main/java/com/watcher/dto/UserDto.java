@@ -26,7 +26,8 @@ public class UserDto {
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
-	private Long mobileNo;
+	private Long mobile;
+	private int age;
 	private Role role;
 	private LocalDate registerDate;
 //	private CartDto cart;

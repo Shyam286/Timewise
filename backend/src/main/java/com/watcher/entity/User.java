@@ -57,8 +57,10 @@ public class User extends BaseEntity implements  UserDetails{
 	
 	@NotNull
 	@Column(length = 10, unique = true)
-	private long mobileNo;
+	private long mobile;
 	
+	@NotNull
+	private int age;
 	private LocalDate registerDate;
 	
 	@Enumerated(EnumType.STRING)
@@ -71,18 +73,18 @@ public class User extends BaseEntity implements  UserDetails{
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Cart cart;
 	 
-		public User(String firstname, String lastname, String email, String password, Long mobileNo, LocalDate registerDate,
-				Role role) {
-			super();
-			this.firstname = firstname;
-			this.lastname = lastname;
-			this.email = email;
-			this.password = password;
-			this.mobileNo = mobileNo;
-			this.registerDate = registerDate;
-			this.role = role;
-		}
-		
+	
+	public User(@NotBlank String firstname, @NotBlank String lastname,
+			@NotBlank @Email(message = "Please enter a valid email address") String email, @NotBlank String password,
+			@NotNull long mobile, @NotNull int age) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.password = password;
+		this.mobile = mobile;
+		this.age = age;
+	}
 //		//helper method
 		public void addAddress(Address address) {
 			System.out.println("-----------------five");
@@ -126,4 +128,6 @@ public class User extends BaseEntity implements  UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+
+
 }

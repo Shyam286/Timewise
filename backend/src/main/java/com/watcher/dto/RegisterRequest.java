@@ -25,19 +25,13 @@ public class RegisterRequest {
 	
 	private String password;
 	
-	private long mobileNo;
+	private long mobile;
 	
+	private int age;
+
 	private LocalDate registerDate;
 	
 	private Role role;
 
-	public RegisterRequest(String firstname, String lastname,
-			String email, String password, long mobileNo) {
-		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.password = password;
-		this.mobileNo = mobileNo;
-	}
+	
 }
