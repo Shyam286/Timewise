@@ -43,6 +43,7 @@ public class AuthenticationService {
 	                  .build();
             
 	        Cart cart = new Cart();
+	        cart.setUser(user);
 			user.setCart(cart);
 	      user = userRepository.save(user);
 	      var jwtToken = jwtService.generateToken(user);

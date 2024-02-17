@@ -19,7 +19,7 @@ import com.watcher.service.UserService;
 import io.jsonwebtoken.io.IOException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserController {
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class UserController {
 		return "any one can view the products!!!!!!!!!";
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/demo")
 	public ResponseEntity<String> sayHello(){
 		return ResponseEntity.ok("Hello everyOne");
@@ -45,28 +45,28 @@ public class UserController {
 	
 		
 		//1. get all user details 
-		@GetMapping("/getAllUser")
+		@GetMapping("/admin/getAllUser")
 		public ResponseEntity<?> getUserDetails() throws IOException {
 			System.out.println("-----------------------------get users" );
 			return ResponseEntity.ok(userService.getAllUsers());
 		}
 		
 		// 2. update user details
-		@PutMapping("/{userId}")
+		@PutMapping("/user/{userId}")
 		public ResponseEntity<?> updateUser(@PathVariable int userId, @RequestBody UserDto dto) {
 			System.out.println("in update user " + userId + " " + dto);
 			return ResponseEntity.ok(userService.updateUser(userId, dto));
 		}
 		
 		// 3. delete user details
-		@DeleteMapping("/{userId}")
+		@DeleteMapping("/admin/user/{userId}")
 		public ResponseEntity<?> deleteUser(@PathVariable int userId) {
 			System.out.println("in update user " + userId);
 			return ResponseEntity.ok(userService.deleteUser(userId));
 		}
 		
 		//1. get all user details 
-		@GetMapping("/user/{userId}")
+		@GetMapping("/get/{userId}")
 		public ResponseEntity<?> getUserById(@PathVariable int userId) throws IOException {
 			System.out.println("-----------------------------get users" );
 			return ResponseEntity.ok(userService.getUserById(userId));

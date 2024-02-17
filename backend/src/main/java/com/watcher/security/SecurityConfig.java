@@ -35,6 +35,30 @@ public class SecurityConfig {
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
+	public static final String[] PUBLIC_URLS = {
+			"/api/v1/auth/**",
+			"/view",
+			"/v*/api-doc*/**",
+			"/swagger-ui/**",
+			"/user/**",
+			"/order/**",
+			"/address/**",
+			"/cart/**",
+			"/product/**"
+	};
+	
+//	public static final String[] ADMIN_URLS= {
+//			"/api/admin/**",
+//			"/product/update/**",
+//			"/product/add",
+//			"/product/delete/**",
+//			"/order/admin/**",
+//			"/cart/admin/**",
+//			"/user/demo"
+//	};
+//	public static final String[] USER_URLS= {
+//			"/api/public/**"
+//	};
 
 //	private AuthenticationProvider authenticationProvider;
 //	@Autowired
@@ -50,9 +74,10 @@ public class SecurityConfig {
 		http
 		 	.csrf(AbstractHttpConfigurer::disable)
          	.authorizeHttpRequests(req ->
-             req.requestMatchers("/user/**","/cart/**","/product/**","/api/v1/auth/**","/view")
+             req.requestMatchers(PUBLIC_URLS)
 				.permitAll()
-//				.requestMatchers("/user/demo").hasRole(Role.ADMIN.name())
+//				.requestMatchers(USER_URLS).hasAnyAuthority("USER", "ADMIN")
+//				.requestMatchers(ADMIN_URLS).hasAuthority("ADMIN")
 				.anyRequest()
 				.authenticated()
 			)
@@ -74,8 +99,7 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	public AuthenticationManager authenticationManager
-	(AuthenticationConfiguration config) throws Exception
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
 	{
 		return config.getAuthenticationManager();
 	}

@@ -16,37 +16,37 @@ import com.watcher.dto.ProductDto;
 import com.watcher.service.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api")
 public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
 	
-	@PostMapping("/add")
+	@PostMapping("/admin/add")
 	public ResponseEntity<?> addProduct(@RequestBody ProductDto productDto){
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productService.addProduct(productDto));
 	}
 	
-	@GetMapping
+	@GetMapping("/public/products")
 	public ResponseEntity<?> getAllProduct(){
 		
 		return ResponseEntity.ok(productService.getAllProduct());
 	}
 	
-	@GetMapping("/{productId}")
+	@GetMapping("/public/{productId}")
 	public ResponseEntity<?> getProductByProductId(@PathVariable int productId){
 		
 		return ResponseEntity.ok(productService.getProductById(productId));
 	}
 	
-	@PutMapping("/update/{productId}")
+	@PutMapping("/admin/product/{productId}")
 	public ResponseEntity<?> updateProductById(@PathVariable int productId, @RequestBody ProductDto productDto){
 		
 		return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(productId, productDto));
 		
 	}
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/admin/product/{id}")
 	public ResponseEntity<?> deleteProductByProductId(@PathVariable int productId){
 		
 		return ResponseEntity.ok(productService.deleteProductById(productId));
