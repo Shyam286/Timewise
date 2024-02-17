@@ -3,6 +3,7 @@ package com.watcher.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -13,12 +14,14 @@ import com.watcher.custom_exception.ApiException;
 import com.watcher.custom_exception.ResourceNotFoundException;
 import com.watcher.dto.OrderDto;
 import com.watcher.dto.OrderItemDto;
+import com.watcher.dto.ProductDto;
 import com.watcher.entity.Cart;
 import com.watcher.entity.CartItem;
 import com.watcher.entity.Order;
 import com.watcher.entity.OrderItem;
 import com.watcher.entity.Payment;
 import com.watcher.entity.Product;
+import com.watcher.entity.User;
 import com.watcher.repository.CartRepository;
 import com.watcher.repository.OrderItemRepository;
 import com.watcher.repository.OrderRepository;
@@ -58,7 +61,6 @@ public class OrderServiceImpl implements OrderService{
 		Cart cart = cartRepository.findById(cartId)
 				.orElseThrow(()-> new ResourceNotFoundException("Cart Not Found"));
 
-//		System.out.println("2--------------------------"+cart);
 
 		Order order = new Order();
 		
@@ -84,7 +86,6 @@ public class OrderServiceImpl implements OrderService{
 		if (cartItems.size() == 0) {
 			throw new ApiException("Cart is empty");
 		}
-//		System.out.println("3--------------------------"+cartItems);
 
 		List<OrderItem> orderItems = new ArrayList<>();
 
@@ -99,7 +100,6 @@ public class OrderServiceImpl implements OrderService{
 
 			orderItems.add(orderItem);
 		}
-//		System.out.println("4--------------------------"+orderItems);
 
 		orderItems = orderItemRepository.saveAll(orderItems);
 
@@ -112,12 +112,16 @@ public class OrderServiceImpl implements OrderService{
 
 			product.setQuantity(product.getQuantity() - quantity);
 		});
-//		System.out.println("5--------------------------");
 
 		OrderDto orderDTO = mapper.map(savedOrder, OrderDto.class);
 		
-		orderItems.forEach(item -> orderDTO.getOrderItems().add(mapper.map(item, OrderItemDto.class)));
+//		orderItems.forEach(item -> orderDTO.getOrderItems().add(mapper.map(item, OrderItemDto.class)));
 //		System.out.println("5--------------------------"+orderItems);
+
+		User user = userRepository.findByEmail(emailId)
+				.orElseThrow();
+//		orderDTO.setOrderProduct(convertProducts(order.getOrderItems()));
+		orderDTO.setEmail(order.getEmail());
 
 		return orderDTO;
 	}
@@ -131,7 +135,14 @@ public class OrderServiceImpl implements OrderService{
 			throw new ResourceNotFoundException("OrderId"+orderId);
 		}
 
-		return mapper.map(order, OrderDto.class);
+		OrderDto orderDTO = mapper.map(order, OrderDto.class);
+		 
+		 User user = userRepository.findByEmail(emailId)
+					.orElseThrow();
+			System.out.println("-----------------------------"+user.getId());
+			orderDTO.setEmail(order.getEmail());
+
+			return orderDTO;
 	}
 
 	@Override
@@ -155,7 +166,7 @@ public class OrderServiceImpl implements OrderService{
 
 		
 		List<OrderDto> orderDto = orders.stream().map(order -> mapper.map(order, OrderDto.class))
-				.collect(Collectors.toList());
+				.collect(Collectors.toList()); 
 		
 		return orderDto;
 	}
@@ -174,4 +185,13 @@ public class OrderServiceImpl implements OrderService{
 		return mapper.map(order, OrderDto.class);
 	}
 
+	private List<ProductDto> convertProducts(List<OrderItem> orderItems) {
+	    return orderItems.stream()
+	            .map(orderItem -> {
+	                ProductDto productDto = mapper.map(orderItem.getProduct(), ProductDto.class);
+	                productDto.setQuantity(orderItem.getQuantity()); // Add quantity from CartItem
+	                return productDto;
+	            })
+	            .collect(Collectors.toList());
+	}
 }

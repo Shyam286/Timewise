@@ -3,6 +3,7 @@ package com.watcher.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.annotations.FetchMode;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.watcher.dto.ProductDto;
 import com.watcher.entity.Cart;
 import com.watcher.entity.CartItem;
 import com.watcher.entity.Product;
+import com.watcher.entity.User;
 import com.watcher.repository.CartItemRepository;
 import com.watcher.repository.CartRepository;
 import com.watcher.repository.ProductRepository;
@@ -67,7 +69,7 @@ public class CartServiceImpl implements CartService {
 		newCartItem.setQuantity(quantity);
 		newCartItem.setDiscount(product.getDiscountedPrice());
 		newCartItem.setPrice(product.getPrice());
-
+		System.out.println(newCartItem.getPrice()+"-------------------"+product.getPrice());
 		cartItemRepository.save(newCartItem);
 
 		product.setQuantity(product.getQuantity() - quantity);
@@ -77,36 +79,48 @@ public class CartServiceImpl implements CartService {
 
 		CartDto cartDto = mapper.map(cart, CartDto.class);
 
-		List<ProductDto> productDto = cart.getCartItem().stream()
-				.map(p -> mapper.map(p.getProduct(), ProductDto.class)).collect(Collectors.toList());
-
-		cartDto.setProduct(productDto);
-
+		cartDto.setProduct(convertProducts(cart.getCartItem()));
+		cartDto.setUserId(cart.getUser().getId());
+		cartDto.setName(cart.getUser().getFirstname());
+		
 		return cartDto;
 	}
 
 	@Override
 	public List<CartDto> getAllCarts() {
 	
-		return cartRepository.findAll()
-				.stream()
-				.map(cart -> mapper.map(cart, CartDto.class))
-				.collect(Collectors.toList());
-	}
+		  List<Cart> carts = cartRepository.findAll();
 
+		    // Convert carts to CartDtos with enhanced logic
+		    List<CartDto> cartDtos = carts.stream()
+		            .map(cart -> {
+		                CartDto cartDto = new CartDto();
+		                cartDto.setId(cart.getId());
+		                cartDto.setUserId(cart.getUser().getId());
+		                cartDto.setName(cart.getUser().getFirstname());
+		                cartDto.setTotalPrice(cart.getTotalPrice());
+		                // Convert cart items and products using appropriate mapping (e.g., ModelMapper)
+		                cartDto.setProduct(convertProducts(cart.getCartItem()));
+		                return cartDto;
+		            })
+		            .collect(Collectors.toList());
+		    
+		    return cartDtos;
+
+		
+	}
+	
 	@Override
 	public CartDto getCartById(int cartId) {
 		Cart cart = cartRepository.findById(cartId)
 				.orElseThrow(() -> new ResourceNotFoundException("Cart Not Found"));
 		
-		            
 		CartDto cartDto = mapper.map(cartRepository.findById(cartId), CartDto.class);
-		
-		List<ProductDto> products = cart.getCartItem().stream()
-				.map(p -> mapper.map(p.getProduct(), ProductDto.class)).collect(Collectors.toList());
 
-		cartDto.setProduct(products);
-
+		cartDto.setProduct(convertProducts(cart.getCartItem()));
+		cartDto.setUserId(cart.getUser().getId());
+		cartDto.setName(cart.getUser().getFirstname());
+	
 		return cartDto;
 	}
 
@@ -147,10 +161,9 @@ public class CartServiceImpl implements CartService {
 
 		CartDto cartDto = mapper.map(cart, CartDto.class);
 
-		List<ProductDto> productDtos = cart.getCartItem().stream()
-				.map(p -> mapper.map(p.getProduct(), ProductDto.class)).collect(Collectors.toList());
-
-		cartDto.setProduct(productDtos);
+		cartDto.setProduct(convertProducts(cart.getCartItem()));
+		cartDto.setUserId(cart.getUser().getId());
+		cartDto.setName(cart.getUser().getFirstname());
 
 		return cartDto;
 	}
@@ -199,5 +212,16 @@ public class CartServiceImpl implements CartService {
 
 		return "Product " + cartItem.getProduct().getTitle() + " removed from the cart !!!";
 	}
+	
+	private List<ProductDto> convertProducts(List<CartItem> cartItems) {
+	    return cartItems.stream()
+	            .map(cartItem -> {
+	                ProductDto productDto = mapper.map(cartItem.getProduct(), ProductDto.class);
+	                productDto.setQuantity(cartItem.getQuantity()); // Add quantity from CartItem
+	                return productDto;
+	            })
+	            .collect(Collectors.toList());
+	}
+
 
 }
