@@ -1,34 +1,51 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 
-import './App.css';
-import Navigation from './customer/components/Navigation/Navigation';
-import HomePage from './pages/HomePage/HomePage';
+import CustomerRoutes from "./Routers/CustomerRoutes";
+import AdminRoutes from "./Routers/AdminRoutes";
+// import NotFound from "./Pages/Notfound";
+import AdminPanel from "./Admin/AdminPanel";
+import { useEffect, useState } from "react";  // Import useState
+import SignIn from "./pages/LoginPage/SignIn";
+import SignUp from "./pages/LoginPage/SignUp";
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from './customer/components/Footer/Footer';
-// import Product from './customer/components/Product/Product';
-import SignIn from './pages/LoginPage/SignIn';
-import SignUp from './pages/LoginPage/SignUp';
-import 'react-toastify/dist/ReactToastify.css';
+function App() {
+  const [user, setUser] = useState(null);
+  const jwt = localStorage.getItem("jwtTokenData"); // get from localStorage.
 
+  useEffect(() => {
+    const fetchUserData = async (jwt) => {
+      try {
+        // Assume you have an API endpoint for fetching user data
+        const response = await fetch(`/api/user/${jwt}`);
+        const userData = await response.json();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-export default function App() {
+    const getUserData = async () => {
+      if (jwt) {
+        await fetchUserData(jwt);
+      }
+    };
+
+    getUserData();
+  }, [jwt]);
+
   return (
-    <div className='bg-yellow-100'>
-
-
-
-      <Navigation />
+    <div className="">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage/>}/>
-          <Route path="/signin" element={<SignIn/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
-        </Routes>
-      </BrowserRouter>
-
-      <Footer />
-
+      <Routes>
+        <Route path="/*" element={<CustomerRoutes />} />
+        {user?.role == "ADMIN" && (
+          <Route path="/admin/*" element={<AdminPanel />} />
+        )}
+      </Routes></BrowserRouter>
+      
     </div>
-
-  )
+  );
 }
+
+export default App;
