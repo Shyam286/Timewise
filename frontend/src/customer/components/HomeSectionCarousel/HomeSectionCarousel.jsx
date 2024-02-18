@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import HomeSectionCard from '../HomeSectionCard/HomeSectionCard';
@@ -9,35 +9,42 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 const responsive = {
   0: { items: 1 },
   720: { items: 3 },
-  1024: { items: 5.5 },
+  1024: { items: 4 },
+  1200:{items:5}
 };
 
-const HomeSectionCarousel = ({data,sectionName}) => {
-  
-
+const HomeSectionCarousel = ({ data, sectionName }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef(null);
 
-  const slidePrev = () => setActiveIndex(activeIndex - 1);
+  const slidePrev = () => {
+    setActiveIndex((prevIndex) => prevIndex - 1);
+    carouselRef.current.slidePrev();
+  };
 
-  const slideNext = () => setActiveIndex(activeIndex + 1);
+  const slideNext = () => {
+    setActiveIndex((prevIndex) => prevIndex + 1);
+    carouselRef.current.slideNext();
+  };
 
-  const syncActiveIndex = ({ item }) => setActiveIndex(item);
+  const items = data.map((item, index) => (
+    <HomeSectionCard key={index} product={item} />
+  ));
 
-  const items = data.map((item) => <HomeSectionCard product={item} />);
-  
   return (
     <div className='border'>
-        <h1>Discover our {sectionName}</h1>
-      <div className='relative p-5' >
+      <h1>Discover our {sectionName}</h1>
+      <div className='relative p-5'>
         <AliceCarousel
           items={items}
-          responsive={responsive} 
+          responsive={responsive}
+          buttonsDisabled
           disableButtonsControls
           disableDotsControls
-          onSlideChanged={syncActiveIndex}
-          activeIndex={activeIndex}
+          dotsDisabled
+          ref={carouselRef}
         />
-        
+
         {activeIndex !== items.length - 5 && (
           <Button
             variant='contained'
@@ -68,7 +75,7 @@ const HomeSectionCarousel = ({data,sectionName}) => {
               transform: 'translateX(-50%) rotate(-90deg)',
               bgcolor: 'white',
             }}
-            aria-label='next'
+            aria-label='prev'
           >
             <KeyboardArrowLeftIcon sx={{ transform: 'rotate(90deg)', color: 'black' }} />
           </Button>

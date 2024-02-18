@@ -5,8 +5,6 @@ import HomePage from "../pages/HomePage/HomePage";
 // import Product from "../customer/components/Product/Product";
 import ProductDetails from "../customer/components/Product/ProductDetails/ProductDetails";
 import Cart from "../customer/components/Cart/Cart";
-import AdminPanel from "../Admin/AdminPanel";
-import DemoAdmin from "../Admin/Views/DemoAdmin";
 import SignIn from "../pages/LoginPage/SignIn";
 import SignUp from "../pages/LoginPage/SignUp";
 import Checkout from "../customer/components/Checkout/Checkout";
@@ -14,6 +12,7 @@ import DeliveryAddressForm from "../customer/components/Checkout/DeliveryAddress
 import OrderSummary from "../customer/components/Checkout/OrderSummary";
 import CartItem from "../customer/components/Cart/CartItem";
 import CreateProduct from "../customer/components/Create/CreateProduct";
+import Admin from "../Admin/Admin";
 // import SearchBar from "../customer/components/SearchBar/SearchBar";
 
 const Routers = () => {
@@ -40,8 +39,6 @@ const Routers = () => {
           <Route path="/ordersummary" element={<OrderSummary />} />
           <Route path="/cartitem" element={<CartItem />} />
           <Route path="/createproduct" element={<CreateProduct />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/demo" element={<DemoAdmin />} />
           {/* <Route path="/searchbar" element={<SearchBar />} /> */}
           
         </Routes>

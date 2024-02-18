@@ -6,7 +6,6 @@ import { mainCarouselData } from './MainCarouselData';
 const responsive = {
     0: { items: 1 },
     568: { items: 2 },
-    1024: { items: 3 },
 };
 
 
@@ -21,7 +20,7 @@ const MainCarousel = () => {
                 responsive={responsive}
                 disableButtonsControls
                 autoPlay
-                autoPlayInterval={1000}
+                autoPlayInterval={2000}
                 infinite
             />
         </div>

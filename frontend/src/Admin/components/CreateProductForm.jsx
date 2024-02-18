@@ -66,124 +66,138 @@ const CreateProductForm = () => {
 
     return (
         <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-4">Create Product</h2>
+            <h2 className="text-2xl font-semibold mb-4">Create Product Form</h2>
             <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Brand:</label>
-                    <input
-                        type="text"
-                        name="brand"
-                        value={formData.brand}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Description:</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                <div className="grid grid-cols-2 gap-4">
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Price:</label>
-                    <input
-                        type="number"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                    {/* Brand */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Brand:</label>
+                        <input
+                            type="text"
+                            name="brand"
+                            value={formData.brand}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Discounted Price:</label>
-                    <input
-                        type="number"
-                        name="discountedPrice"
-                        value={formData.discountedPrice}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                </div>
+                    {/* Description */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Description:</label>
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Quantity:</label>
-                    <input
-                        type="number"
-                        name="quantity"
-                        value={formData.quantity}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                    {/* Price */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Price:</label>
+                        <input
+                            type="number"
+                            name="price"
+                            value={formData.price}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Image 1 Link:</label>
-                    <input
-                        type="text"
-                        name="img1"
-                        value={formData.img1}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                    {/* Discounted Price */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Discounted Price:</label>
+                        <input
+                            type="number"
+                            name="discountedPrice"
+                            value={formData.discountedPrice}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Image 2 Link:</label>
-                    <input
-                        type="text"
-                        name="img2"
-                        value={formData.img2}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                    {/* Quantity */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Quantity:</label>
+                        <input
+                            type="number"
+                            name="quantity"
+                            value={formData.quantity}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Image 3 Link:</label>
-                    <input
-                        type="text"
-                        name="img3"
-                        value={formData.img3}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                    {/* Image 1 Link */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Image 1 Link:</label>
+                        <input
+                            type="text"
+                            name="img1"
+                            value={formData.img1}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Color:</label>
-                    <input
-                        type="text"
-                        name="color"
-                        value={formData.color}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
-                </div>
+                    {/* Image 2 Link */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Image 2 Link:</label>
+                        <input
+                            type="text"
+                            name="img2"
+                            value={formData.img2}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
     
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Category:</label>
-                    <input
-                        type="text"
-                        name="category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                        required
-                    />
+                    {/* Image 3 Link */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Image 3 Link:</label>
+                        <input
+                            type="text"
+                            name="img3"
+                            value={formData.img3}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
+    
+                    {/* Color */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Color:</label>
+                        <input
+                            type="text"
+                            name="color"
+                            value={formData.color}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
+    
+                    {/* Category */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Category:</label>
+                        <input
+                            type="text"
+                            name="category"
+                            value={formData.category}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
                 </div>
     
                 <div className="mb-4">
@@ -200,6 +214,7 @@ const CreateProductForm = () => {
             <ToastContainer />
         </div>
     );
+    
     
 };
 

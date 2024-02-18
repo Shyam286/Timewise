@@ -2,12 +2,12 @@ import * as React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CustomerRoutes from "./Routers/CustomerRoutes";
-import AdminPanel from "./Admin/AdminPanel";
 import { useEffect, useState } from "react";
 import Routers from './Routers/Routers';
 import SearchBar from './customer/components/SearchBar/SearchBar';
 import SearchResultsList from './customer/components/SearchBar/SearchResultList';
 import SearchResultList from './customer/components/SearchBar/SearchResultList';
+import Admin from './Admin/Admin';
 //import SearchResultsList from './customer/components/SearchBar/SearchResultsList'; // Import SearchResultsList
 
 function App() {
@@ -40,18 +40,27 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<Routers/>} />
-          {user?.role === "ADMIN" && (
-            <Route path="/admin/*" element={<AdminPanel />} />
+
+          //commented for demo purposes
+          {/* {user?.role === "ADMIN" && (
+            <Route path="/admin/*" element={<Admin />} />
           )}
-          
+           */}
+            <Route path="/admin/*" element={<Admin />} />
         </Routes>
-        <div className="search-bar-container">
-          <SearchBar setResults={setResults} /> {/* Pass setResults as prop */}
-          {results && results.length > 0 && <SearchResultList results={results} />} {/* Render SearchResultsList conditionally */}
-        </div>
+
+
       </BrowserRouter>
     </div>
   );
 }
 
 export default App;
+
+
+        // //not needed search result
+        // <div className="search-bar-container">
+        //   <SearchBar setResults={setResults} /> {/* Pass setResults as prop */}
+        //   {results && results.length > 0 && <SearchResultList results={results} />} {/* Render SearchResultsList conditionally */}
+        // </div>
+        
