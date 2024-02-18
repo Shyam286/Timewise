@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,10 +32,10 @@ public class OrderItem extends BaseEntity{
 	@JoinColumn(name = "order_id")
 	private Order order;
 	
-	@NotBlank
+	@NotNull
 	private int quantity;
-	@NotBlank
+	
 	private double discount;
-	@NotBlank
+	
 	private double orderedProductPrice;
 }

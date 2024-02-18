@@ -1,22 +1,23 @@
+import * as React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-
 import CustomerRoutes from "./Routers/CustomerRoutes";
-import AdminRoutes from "./Routers/AdminRoutes";
-// import NotFound from "./Pages/Notfound";
-import { useEffect, useState } from "react";  // Import useState
-import SignIn from "./pages/LoginPage/SignIn";
-import SignUp from "./pages/LoginPage/SignUp";
-import Admin from "./Admin/Admin";
+import AdminPanel from "./Admin/AdminPanel";
+import { useEffect, useState } from "react";
+import Routers from './Routers/Routers';
+import SearchBar from './customer/components/SearchBar/SearchBar';
+import SearchResultsList from './customer/components/SearchBar/SearchResultList';
+import SearchResultList from './customer/components/SearchBar/SearchResultList';
+//import SearchResultsList from './customer/components/SearchBar/SearchResultsList'; // Import SearchResultsList
 
 function App() {
   const [user, setUser] = useState(null);
-  const jwt = localStorage.getItem("jwtTokenData"); // get from localStorage.
+  const [results, setResults] = useState(null); // Define results state
+  const jwt = localStorage.getItem("jwtTokenData");
 
   useEffect(() => {
     const fetchUserData = async (jwt) => {
       try {
-        // Assume you have an API endpoint for fetching user data
         const response = await fetch(`/api/user/${jwt}`);
         const userData = await response.json();
         setUser(userData);
@@ -37,13 +38,18 @@ function App() {
   return (
     <div className="">
       <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<CustomerRoutes />} />
-      {/* //  {user?.role == "ADMIN" && ( */}
-          <Route path="/admin/*" element={<Admin />} />
-        {/* // }) */}
-      </Routes></BrowserRouter>
-      
+        <Routes>
+          <Route path="/*" element={<Routers/>} />
+          {user?.role === "ADMIN" && (
+            <Route path="/admin/*" element={<AdminPanel />} />
+          )}
+          
+        </Routes>
+        <div className="search-bar-container">
+          <SearchBar setResults={setResults} /> {/* Pass setResults as prop */}
+          {results && results.length > 0 && <SearchResultList results={results} />} {/* Render SearchResultsList conditionally */}
+        </div>
+      </BrowserRouter>
     </div>
   );
 }

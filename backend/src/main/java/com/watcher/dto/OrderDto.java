@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderDto {
 	
-	private int orderId;
+	private int id;
 	
 	private String email;
 	
 	private List<OrderItemDto> orderItems = new ArrayList<>();
-	
+		
 	private LocalDate orderDate;
 	
 	private PaymentDto payment;
