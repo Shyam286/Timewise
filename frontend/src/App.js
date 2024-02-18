@@ -45,10 +45,11 @@ function App() {
           )}
           
         </Routes>
-        <div className="search-bar-container">
-          <SearchBar setResults={setResults} /> {/* Pass setResults as prop */}
-          {results && results.length > 0 && <SearchResultList results={results} />} {/* Render SearchResultsList conditionally */}
-        </div>
+        {/* <div className="search-bar-container"> */}
+          {/* <SearchBar setResults={setResults} /> */}
+          {/* Pass setResults as prop */}
+          {/* {results && results.length > 0 && <SearchResultList results={results} />} Render SearchResultsList conditionally */}
+        {/* </div> */}
       </BrowserRouter>
     </div>
   );

@@ -14,6 +14,7 @@ import DeliveryAddressForm from "../customer/components/Checkout/DeliveryAddress
 import OrderSummary from "../customer/components/Checkout/OrderSummary";
 import CartItem from "../customer/components/Cart/CartItem";
 import CreateProduct from "../customer/components/Create/CreateProduct";
+import Product from "../customer/components/Product/Product/Product";
 // import SearchBar from "../customer/components/SearchBar/SearchBar";
 
 const Routers = () => {
@@ -34,7 +35,10 @@ const Routers = () => {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
+          <Route path="/product" element={<Product />} />
+
           <Route path="/cart" element={<Cart />} />
+          
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/delivery-address" element={<DeliveryAddressForm />} />
           <Route path="/ordersummary" element={<OrderSummary />} />

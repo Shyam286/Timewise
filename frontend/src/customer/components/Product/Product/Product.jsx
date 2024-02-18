@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
@@ -9,6 +9,7 @@ import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mu
 
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useLocation, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const sortOptions = [
 
@@ -59,6 +60,16 @@ export default function Product() {
     navigate({ search: `?${query}` });
   }
 
+  /*---------------------------------------------*/
+
+  const [data, setData]= useState([])
+
+  useEffect(()=>{
+    axios.get('http://localhost:8082/api/public/products')
+    .then(res => setData(res.data))
+    .catch(err => console.log(err));
+  },[])
+   
   return (
     <div className="bg-white">
       <div>
@@ -321,7 +332,9 @@ export default function Product() {
               {/* Product grid */}
               <div className="lg:col-span-3 w-full ">
                   <div className="flex flex-wrap justify-center bg-white border py-5 rounded-md ">
-                  {mens_watches.map((item) => <ProductCard product ={item}/> ) }
+                  {data.map((product) => 
+                    <ProductCard key={product.id} product={product} />
+                  ) }
                   </div>
               </div>
       </div>
