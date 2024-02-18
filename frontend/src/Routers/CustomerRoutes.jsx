@@ -7,12 +7,13 @@ import HomePage from "../pages/HomePage/HomePage";
 import Footer from "../customer/components/Footer/Footer";
 import SignIn from "../pages/LoginPage/SignIn";
 import SignUp from "../pages/LoginPage/SignUp";
+import Product from "../customer/components/Product/Product/Product";
 // import Cart from "../customer/Components/Cart/Cart";
 // import ProductDetails from "../customer/Components/Product/ProductDetails/ProductDetails";
 // import Product from "../customer/components/Product/product/Product";
 // import Contact from "../Pages/Contact";
 // import TearmsCondition from "../Pages/TearmsCondition";
-// import PrivacyPolicy from "../Pages/PrivacyPolicy";
+// import PrivacyPolicy from "../Pages/Pr ivacyPolicy";
 // import About from "../Pages/About";
 // import Homepage from "../Pages/Homepage";
 // import Navigation from "../customer/Components/Navbar/Navigation";
@@ -46,6 +47,7 @@ const CustomerRoutes = () => {
 
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/home" element={<HomePage />}></Route>
+        <Route path="/products" element={<Product/>}></Route>
         {/* <Route path="/about" element={<About />}></Route>
         <Route path="/privaciy-policy" element={<PrivacyPolicy />}></Route>
         <Route path="/terms-condition" element={<TearmsCondition />}></Route>

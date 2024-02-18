@@ -6,10 +6,10 @@ import HomePage from "../pages/HomePage/HomePage";
 import Product from "../customer/components/Product/product/Product";
 import ProductDetails from "../customer/Components/Product/ProductDetails/ProductDetails";
 import Cart from "../customer/Components/Cart/Cart";
-import AdminPanel from "../Admin/AdminPanel";
 import DemoAdmin from "../Admin/Views/DemoAdmin";
 import SignIn from "../pages/LoginPage/SignIn";
 import SignUp from "../pages/LoginPage/SignUp";
+import Admin from "../Admin/Admin";
 
 
 
@@ -29,13 +29,11 @@ const Routers = () => {
         <Route path="/terms-condition" element={<TearmsCondition/>}></Route>
         <Route path="/contact" element={<Contact/>}></Route> */}
         <Route path="/men" element={<Product/>}></Route>
-        <Route path="/signin" element={<SignIn/>}></Route>
-        <Route path="/signup" element={<SignUp/>}></Route>
         <Route path="/product/:productId" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
       
 
-        <Route path="/admin" element={<AdminPanel/>}></Route>
+        <Route path="/admin" element={<Admin/>}></Route>
         <Route path="/demo" element={<DemoAdmin/>}></Route>
 
       </Routes>

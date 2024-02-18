@@ -4,10 +4,10 @@ import "./App.css";
 import CustomerRoutes from "./Routers/CustomerRoutes";
 import AdminRoutes from "./Routers/AdminRoutes";
 // import NotFound from "./Pages/Notfound";
-import AdminPanel from "./Admin/AdminPanel";
 import { useEffect, useState } from "react";  // Import useState
 import SignIn from "./pages/LoginPage/SignIn";
 import SignUp from "./pages/LoginPage/SignUp";
+import Admin from "./Admin/Admin";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,9 +39,9 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/*" element={<CustomerRoutes />} />
-        {user?.role == "ADMIN" && (
-          <Route path="/admin/*" element={<AdminPanel />} />
-        )}
+      {/* //  {user?.role == "ADMIN" && ( */}
+          <Route path="/admin/*" element={<Admin />} />
+        {/* // }) */}
       </Routes></BrowserRouter>
       
     </div>
