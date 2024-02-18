@@ -31,35 +31,30 @@ public class OrderController {
 			String paymentMethod) {
 		System.out.println("start--------------------------");
 
-		OrderDto order = orderService.placeOrder(emailId, cartId, paymentMethod);
-		
-		return new ResponseEntity<OrderDto>(order, HttpStatus.CREATED);
+		return ResponseEntity.ok(orderService.placeOrder(emailId, cartId, paymentMethod));
 	}
 	
 	@GetMapping("/admin/orders")
 	public ResponseEntity<?> getAllOrders() {
 		
-		return ResponseEntity.status(HttpStatus.FOUND).body(orderService.getAllOrders());
+		 return ResponseEntity.ok(orderService.getAllOrders());
 	}
 	
 	@GetMapping("/public/users/{emailId}/orders")
 	public ResponseEntity<List<OrderDto>> getOrdersByUser(@PathVariable String emailId) {
-		List<OrderDto> orders = orderService.getOrdersByUser(emailId);
+		return ResponseEntity.ok(orderService.getOrdersByUser(emailId));
 		
-		return new ResponseEntity<List<OrderDto>>(orders, HttpStatus.FOUND);
 	}
 	
 	@GetMapping("/public/users/{emailId}/orders/{orderId}")
 	public ResponseEntity<OrderDto> getOrderByUser(@PathVariable String emailId, @PathVariable int orderId) {
-		OrderDto order = orderService.getOrder(emailId, orderId);
+		return ResponseEntity.ok(orderService.getOrder(emailId, orderId));
 		
-		return new ResponseEntity<OrderDto>(order, HttpStatus.FOUND);
 	}
 	
 	@PutMapping("/admin/users/{emailId}/orders/{orderId}/orderStatus/{orderStatus}")
 	public ResponseEntity<OrderDto> updateOrderByUser(@PathVariable String emailId, @PathVariable int orderId, @PathVariable String orderStatus) {
-		OrderDto order = orderService.updateOrder(emailId, orderId, orderStatus);
+		return ResponseEntity.ok(orderService.updateOrder(emailId, orderId, orderStatus));
 		
-		return new ResponseEntity<OrderDto>(order, HttpStatus.OK);
 	}
 }
