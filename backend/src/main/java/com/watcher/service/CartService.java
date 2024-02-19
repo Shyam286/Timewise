@@ -7,7 +7,7 @@ import com.watcher.dto.CartDto;
 
 public interface CartService {
 	
-	CartDto addProductToCart(int cartId, int productId, int quantity);
+	String addProductToCart(int cartId, int productId, int quantity);
 	
 	
 	List<CartDto> getAllCarts();

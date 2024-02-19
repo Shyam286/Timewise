@@ -37,6 +37,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private ModelMapper mapper;
 	
+	public int getCartIdByUserId(int userId) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("UserId--"+ userId));
+		return user.getCart().getId();
+		}
 	@Override
 	public List<UserDto> getAllUsers() {
 		

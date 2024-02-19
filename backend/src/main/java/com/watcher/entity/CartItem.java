@@ -30,7 +30,7 @@ public class CartItem extends BaseEntity{
 	private Product product;
 	
 
-	private int quantity;
+	private int quantity=0;
 
 	private int discount;
 	

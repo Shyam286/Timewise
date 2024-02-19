@@ -18,6 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class UserDto {
+	private int id;
 	private String firstname;
 	private String lastname;
 	

@@ -20,7 +20,7 @@ public interface UserService {
 	
 	String deleteUser(int userId);
 	
-	
+	int getCartIdByUserId(int userId);
 	
 
 	
