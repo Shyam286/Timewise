@@ -54,7 +54,8 @@ public class CartServiceImpl implements CartService {
 		CartItem cartItem = cartItemRepository.findCartItemByProductIdAndCartId(cartId, productId);
 		
 		if (cartItem != null) {
-			throw new ApiException("Product " + product.getTitle() + " already exists in the cart");
+			return "Product " + product.getTitle() + " already exists in the cart";
+			//throw new ApiException("Product " + product.getTitle() + " already exists in the cart");
 		}
 
 		if (product.getQuantity() == 0) {
