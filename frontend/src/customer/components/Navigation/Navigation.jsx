@@ -1,8 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import axios from 'axios'
-import ProductCard from '../Product/ProductCard/ProductCard'
 
 const navigation = {
   categories: [
@@ -110,20 +108,7 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
-  // const [data, setData] = useState([])
 
-  // const handleCategories = async (category) => {
-  
-  
-  //   const apiUrl = `http://localhost:8082/api/public/category/${category}`;
-  //   axios.get(apiUrl)
-  //     .then(res => setData(res.data))
-  //     .catch(err => console.log(err));
-
-  //   {data.map((product) => 
-  //     <ProductCard key={product.id} product={product} />
-  //   ) }
-  // }
   
 
   return (
@@ -329,7 +314,7 @@ export default function Navigation() {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
+                            <Popover.Panel className="absolute z-50 inset-x-0 top-full text-sm text-gray-500">
                               {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                               <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 

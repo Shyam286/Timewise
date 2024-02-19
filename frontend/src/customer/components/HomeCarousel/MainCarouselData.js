@@ -4,19 +4,19 @@ export const mainCarouselData = [
         path: "/unisex/watches/smartwatch"
     },
     {
-        image: "https://m.media-amazon.com/images/I/61jzPPHm+kL._SY450_.jpg",
+        image: "https://gshock.casio.com/content/casio/locales/in/en/brands/gshock/40th/_jcr_content/root/responsivegrid/container_1306881527_1498753482/carousel/item_1676370487005.casiocoreimg.jpeg/1676467172691/cic-banner-desktop.jpeg",
         path: "/unisex/watches/smartwatch"
     },
     {
-        image: "https://m.media-amazon.com/images/I/61AHiYyu3ZL._SY450_.jpg",
+        image: "https://www.casio.com/content/casio/locales/intl/en/products/watches/protrek/_jcr_content/root/responsivegrid/carousel/teaser.casiocoreimg.jpeg/1691456420309/prt-b50-hero-pc-m.jpeg",
         path: "/unisex/watches/smartwatch"
     },
     {
-        image: "https://m.media-amazon.com/images/I/61JtVmcxb0L._SL1080_.jpg",
+        image: "https://www.casio.com/content/casio/locales/in/en/products/_jcr_content/root/responsivegrid/carousel/image_1970305012_cop.casiocoreimg.jpeg/1705993289271/banner-flare-red-pc.jpeg",
         path: "/unisex/watches/smartwatch"
     },
     {
-        image: "https://m.media-amazon.com/images/I/61JtVmcxb0L._SL1080_.jpg",
+        image: "https://gshock.casio.com/content/casio/locales/in/en/brands/gshock/40th/_jcr_content/root/responsivegrid/container_1306881527_1498753482/carousel/item_1676552226499.casiocoreimg.jpeg/1676552261772/2100-1920x816-desktop.jpeg",
         path: "/unisex/watches/smartwatch"
     }
 

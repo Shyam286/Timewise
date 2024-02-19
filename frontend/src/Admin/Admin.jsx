@@ -27,7 +27,7 @@ const menu = [
     },
     {
         name: 'Customers',
-        path: '/customers',
+        path: '/admin/customers',
         icon: <PeopleIcon />
     },
     {
