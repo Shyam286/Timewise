@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.watcher.custom_exception.ResourceNotFoundException;
 import com.watcher.dto.ProductDto;
 import com.watcher.entity.Category;
+import com.watcher.entity.Product;
 import com.watcher.service.ProductService;
 
 @RestController
@@ -67,7 +69,17 @@ public class ProductController {
 		
 		return ResponseEntity.ok(productService.deleteProductById(productId));
 	
+	}
 	
-	
+	@PutMapping("/admin/product/{productId}/quantity/{quantity}")
+	public ResponseEntity<?> updateProductQuantity(@PathVariable int productId, @PathVariable int quantity) {
+	    try {
+	        Product updatedProduct = productService.updateProductQuantity(productId, quantity);
+	        return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+	    } catch (ResourceNotFoundException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
+	    }
 	}
 }

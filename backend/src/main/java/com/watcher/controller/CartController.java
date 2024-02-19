@@ -28,8 +28,8 @@ public class CartController {
 	private CartService cartService;
 	
 	@PostMapping("/public/carts/{cartId}/products/{productId}/quantity/{quantity}")
-	public ResponseEntity<?> addProductToCart(@PathVariable int cartId, @PathVariable int productId, @PathVariable int quantity) {
-		return ResponseEntity.ok(cartService.addProductToCart(cartId, productId, quantity));		
+	public ResponseEntity<?> addProductToCart(@PathVariable int cartId, @PathVariable int productId,@PathVariable int quantity) {
+		return ResponseEntity.ok(cartService.addProductToCart(cartId, productId,quantity));		
 	}
 	
 	
@@ -46,10 +46,16 @@ public class CartController {
 		
 	}
 	
+//	@GetMapping("/public/user/{userId}")
+//	public ResponseEntity<?> getCartByUserId( @PathVariable int cartId) {
+//		return ResponseEntity.ok(cartService.getCartById(cartId));
+//		
+//	}
+	
 	@PutMapping("/public/carts/{cartId}/products/{productId}/quantity/{quantity}")
-	public ResponseEntity<?> updateCartProduct(@PathVariable int cartId, @PathVariable int productId, @PathVariable int quantity) {
+	public ResponseEntity<?> updateCartProduct(@PathVariable int cartId, @PathVariable int productId,@PathVariable int quantity) {
 		
-		return ResponseEntity.ok(cartService.updateProductQuantityInCart(cartId, productId, quantity));
+		return ResponseEntity.ok(cartService.updateProductQuantityInCart(cartId, productId,quantity));
 	}
 	
 	@DeleteMapping("/public/carts/{cartId}/product/{productId}")

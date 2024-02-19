@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navigation from "../customer/components/Navigation/Navigation";
 import HomePage from "../pages/HomePage/HomePage";
-// import Product from "../customer/components/Product/Product";
+ import Product from "../customer/components/Product/Product/Product";
 import ProductDetails from "../customer/components/Product/ProductDetails/ProductDetails";
 import Cart from "../customer/components/Cart/Cart";
 import SignIn from "../pages/LoginPage/SignIn";
@@ -33,7 +33,10 @@ const Routers = () => {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/product" element={<Product />} />
+
+          <Route path="/cart/:cartId" element={<Cart />} />
+          
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/delivery-address" element={<DeliveryAddressForm />} />
           <Route path="/ordersummary" element={<OrderSummary />} />

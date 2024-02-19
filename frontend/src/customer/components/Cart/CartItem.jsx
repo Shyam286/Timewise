@@ -3,9 +3,37 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { IconButton } from "@mui/material";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 
-const CartItem = ({ item,showButton }) => {
+  
+const CartItem = ({ item }) => {
+
+  //const { removeFromCart, updateCartItem } = useState(null); 
+
+  // const handleRemove = () => {
+  //   removeFromCart(item.productId); 
+   
+  //   axios.delete(`http://localhost:8082/api/public/carts/1/products/${item.productId}`)
+  //     .then(response => {
+  //       console.log('Item removed from backend:', response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error removing item from backend', error);
+  //     });
+  // };
+
+  // const handleQuantityChange = (quantity) => {
+  //   updateCartItem(item.productId, quantity); // Call the updateCartItem function from your CartContext
+  //   // Additionally, you can make an API call to update the item quantity in the backend
+  //   axios.put(`http://localhost:8082/api/public/carts/1/products/${item.productId}/quantity/${quantity}`)
+  //     .then(response => {
+  //       console.log('Item quantity updated in backend:', response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error updating item quantity in backend', error);
+  //     });
+  // };
 
   return (
   <div className="p-5 shadow-lg border rounded-md">
@@ -21,17 +49,14 @@ const CartItem = ({ item,showButton }) => {
         
         
         <div className="ml-5 space-y-1">
-          <p className="font-semibold">Bugatti</p>
-          <p className="opacity-70">Size: L ,White</p>
-          <p className="opacity-70 mt-2">Seller: jacob & co. </p>
+          <p className="font-semibold">{item.title}</p>
+          <p className="opacity-70 mt-2">Brand :{item.brand} </p>
           <div className="flex space-x-2 items-center pt-3">
-            <p className="opacity-50 line-through">₹5000</p>
+            <p className="opacity-50 line-through">₹{item.productPrice}</p>
             <p className="font-semibold text-lg">
-              ₹4500
+              ₹{item.discount}
             </p>
-            <p className="text-green-600 font-semibold">
-               5 % off
-            </p>
+            
           </div>
           </div>
          </div>

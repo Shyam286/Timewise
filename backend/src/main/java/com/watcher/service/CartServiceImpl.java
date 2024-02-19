@@ -19,6 +19,7 @@ import com.watcher.entity.User;
 import com.watcher.repository.CartItemRepository;
 import com.watcher.repository.CartRepository;
 import com.watcher.repository.ProductRepository;
+import com.watcher.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -36,10 +37,13 @@ public class CartServiceImpl implements CartService {
 	private CartItemRepository cartItemRepository;
 
 	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
 	private ModelMapper mapper;
 	
 	@Override
-	public CartDto addProductToCart(int cartId, int productId, int quantity) {
+	public String addProductToCart(int cartId, int productId, int quantity) {
 		
 		Cart cart = cartRepository.findById(cartId)
 					.orElseThrow(()-> new ResourceNotFoundException("cartId"+cartId));
@@ -83,7 +87,7 @@ public class CartServiceImpl implements CartService {
 		cartDto.setUserId(cart.getUser().getId());
 		cartDto.setName(cart.getUser().getFirstname());
 		
-		return cartDto;
+		return "added";
 	}
 
 	@Override
@@ -124,6 +128,7 @@ public class CartServiceImpl implements CartService {
 		return cartDto;
 	}
 
+	
 	@Override
 	public CartDto updateProductQuantityInCart(int cartId, int productId, int quantity) {
 		
@@ -223,5 +228,11 @@ public class CartServiceImpl implements CartService {
 	            .collect(Collectors.toList());
 	}
 
+	public int getCartByUserEmail(String email) {
+		
+			User user =	userRepository.findByEmail(email)
+					.orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+		return cartRepository.findByUserId(user.getId()).getId();
+	}
 
 }

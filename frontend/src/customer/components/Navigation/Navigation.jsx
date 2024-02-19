@@ -124,6 +124,8 @@ export default function Navigation() {
     window.location.href = '/signin';
   };
 
+  
+
   return (
     <div className="bg-white pb-10">
       {/* Mobile menu */}
@@ -171,7 +173,9 @@ export default function Navigation() {
                       {navigation.categories.map((category) => (
                         <Tab
                           key={category.name}
-                          className={({ selected }) =>
+                          // let category = {category.name}
+                          // onClick={() => handleCategories(category)}
+                          className={({ selected }) =>                         
                             classNames(
                               selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900',
                               'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'

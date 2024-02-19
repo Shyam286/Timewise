@@ -18,6 +18,7 @@ import com.watcher.entity.Cart;
 import com.watcher.entity.Role;
 import com.watcher.entity.User;
 import com.watcher.repository.UserRepository;
+import com.watcher.service.CartServiceImpl;
 import com.watcher.service.UserService;
 
 @Service
@@ -25,6 +26,7 @@ public class AuthenticationService {
 	
 	@Autowired
 	  private  UserRepository userRepository;
+	
 	@Autowired
 	  private  UserService userService;
 	@Autowired
@@ -33,7 +35,8 @@ public class AuthenticationService {
 	  private  JwtService jwtService;
 	@Autowired
 	  private  AuthenticationManager authenticationManager;
-	
+	@Autowired
+	private CartServiceImpl cartServiceImpl;
 	@Autowired
 	private ModelMapper mapper;
 	
@@ -76,8 +79,9 @@ public class AuthenticationService {
 			
 			response.setToken(jwtToken);
 			response.setUser(mapper.map((User) userDetails, UserDto.class));
-	     // return AuthenticationResponse.builder().token(jwtToken).build();
-return response;
+			
+			response.setCartId(cartServiceImpl.getCartByUserEmail(request.getEmail()));
+			return response;
 		  }
 /*
 	  public AuthenticationResponse signin(SignInRequest request) {

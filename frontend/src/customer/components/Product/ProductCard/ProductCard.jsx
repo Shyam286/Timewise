@@ -1,13 +1,25 @@
-import React from 'react'
-import './ProductCard.css'
+// ProductCard.js
+import React from 'react';
+import ProductDetails from '../ProductDetails/ProductDetails';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react'
+
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleProductClick = () => {
+    navigate(`/product/${product.id}`);
+  };
+;
+
   return (
-    <div className="ProductCard w-[12rem] m-3 transition-all cursor-pointer">
-      <div className="h-[15rem] w-full ">
+    <div className="ProductCard w-[12rem] m-3 transition-all cursor-pointer" onClick={handleProductClick}>
+      <div className="h-[15rem] w-full">
         <img
           className='h-full w-full object-cover object-left-top'
-          src={product.imageUrl}
-          alt="" />
+          src={product.image1}
+          alt=""
+        />
       </div>
       <div className="textpart bg-white p-3">
         <div>
@@ -17,11 +29,10 @@ const ProductCard = ({ product }) => {
         <div className='flex items-center space-x-2'>
           <p className="font-semibold">₹{product.discountedPrice}</p>
           <p className="line-through opacity-50">₹{product.price}</p>
-          <p className='text-green-600 font-semibold'>{product.discountPercent}% off</p>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

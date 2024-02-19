@@ -75,4 +75,10 @@ public class UserController {
 			return ResponseEntity.ok(userService.getUserById(userId));
 		}
 		
+		@GetMapping("/user/cart/{userId}")
+		public ResponseEntity<?> getCartIdByUserId(@PathVariable int userId) throws IOException {
+			System.out.println("-----------------------------get users" );
+			return ResponseEntity.ok(userService.getCartIdByUserId(userId));
+		}
+		
 }
