@@ -6,11 +6,15 @@ const CustomersTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [customersPerPage] = useState(5); // Adjust the number of customers per page
 
+    
+    const apiUrl = `http://localhost:8082/api/admin/getAllUser`;
+
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const response = await axios.get('/api/customers');
+                const response = await axios.get(apiUrl);
                 setCustomers(response.data);
+                console.log(response.data)
             } catch (error) {
                 console.error('Error fetching customers:', error.message);
             }
@@ -35,7 +39,8 @@ const CustomersTable = () => {
                 <thead>
                     <tr>
                         <th className="border p-2">User ID</th>
-                        <th className="border p-2">Name</th>
+                        <th className="border p-2">FirstName</th>
+                        <th className="border p-2">LastName</th>
                         <th className="border p-2">Email</th>
                         <th className="border p-2">Age</th>
                     </tr>
@@ -43,8 +48,9 @@ const CustomersTable = () => {
                 <tbody>
                     {currentCustomers.map((customer) => (
                         <tr key={customer.userId} className="border">
-                            <td className="border p-2">{customer.userId}</td>
-                            <td className="border p-2">{customer.name}</td>
+                            <td className="border p-2">{customer.id}</td>
+                            <td className="border p-2">{customer.firstname}</td>
+                            <td className="border p-2">{customer.lastname}</td>
                             <td className="border p-2">{customer.email}</td>
                             <td className="border p-2">{customer.age}</td>
                         </tr>

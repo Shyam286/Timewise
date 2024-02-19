@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsTable = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(5); // Adjust the number of products per page
+    
+    const navigate  = useNavigate();
+    const apiUrl = `http://localhost:8082/api/public/products`;
+    const apiUrl2 = `http://localhost:8082/api/admin/product`;
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('/api/public/products');
+                const response = await axios.get(apiUrl);
                 setProducts(response.data);
             } catch (error) {
                 console.error('Error fetching products:', error.message);
@@ -28,7 +33,7 @@ const ProductsTable = () => {
 
     const handleEdit = async (productId, updatedQuantity) => {
         try {
-            await axios.put(`/api/products/${productId}`, { quantity: updatedQuantity });
+            await axios.put(`http://localhost:8082/api/admin/product/${productId}/quantity/${updatedQuantity}`);
             // Assuming your backend updates the product quantity successfully
             // You can also update the local state or refetch products from the server
             console.log(`Successfully updated product with ID ${productId}`);
@@ -39,7 +44,8 @@ const ProductsTable = () => {
 
     const handleDelete = async (productId) => {
         try {
-            await axios.delete(`/api/products/${productId}`);
+            await axios.delete(`http://localhost:8082/api/admin/product/${productId}`);
+            navigate('/admin/products')
             // Assuming your backend deletes the product successfully
             // You can also update the local state or refetch products from the server
             console.log(`Successfully deleted product with ID ${productId}`);
@@ -58,7 +64,7 @@ const ProductsTable = () => {
                     <tr>
                         <th className="border p-2">Product ID</th>
                         <th className="border p-2">Title</th>
-                        <th className="border p-2">Small Image</th>
+                        <th className="border p-2">Image</th>
                         <th className="border p-2">Brand</th>
                         <th className="border p-2">Quantity</th>
                         <th className="border p-2">Discounted Price</th>
@@ -72,7 +78,7 @@ const ProductsTable = () => {
                             <td className="border p-2">{product.id}</td>
                             <td className="border p-2">{product.title}</td>
                             <td className="border p-2">
-                                <img src={product.smallImage1} alt={product.title} className="w-16 h-16 object-cover" />
+                                <img src={product.image1} alt={product.title} className="w-16 h-16 object-cover" />
                             </td>
                             <td className="border p-2">{product.brand}</td>
                             <td className="border p-2">

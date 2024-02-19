@@ -19,10 +19,11 @@ public interface ProductService {
 	
 	ApiResponse deleteProductById(int productId);
 
-	 List<ProductDto> getProductsByCategory(Category category);
+	List<ProductDto> getProductsByCategory(Category category);
 	
-	 List<ProductDto> getProductsByColor(String color);
+	List<ProductDto> getProductsByColor(String color);
 
-	 
+   Product updateProductQuantity(int productId, int quantity) ;
+
 	 
 }

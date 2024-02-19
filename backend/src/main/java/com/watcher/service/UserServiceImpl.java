@@ -18,6 +18,7 @@ import com.watcher.dto.ProductDto;
 import com.watcher.dto.UserDto;
 import com.watcher.entity.Address;
 import com.watcher.entity.CartItem;
+import com.watcher.entity.Role;
 import com.watcher.entity.User;
 import com.watcher.repository.AddressRepository;
 import com.watcher.repository.UserRepository;
@@ -42,15 +43,28 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new ResourceNotFoundException("UserId--"+ userId));
 		return user.getCart().getId();
 		}
+//	@Override
+//	public List<UserDto> getAllUsers() {
+//		
+//		return userRepository.findAll()
+//				.stream()
+//				.map(user -> mapper.map(user, UserDto.class))
+//				.collect(Collectors.toList());
+//	}
+
 	@Override
 	public List<UserDto> getAllUsers() {
-		
-		return userRepository.findAll()
-				.stream()
-				.map(user -> mapper.map(user, UserDto.class))
-				.collect(Collectors.toList());
+	    return userRepository.findAll()
+	            .stream()
+	            .filter(user -> hasUserRole(user, Role.USER))
+	            .map(user -> mapper.map(user, UserDto.class))
+	            .collect(Collectors.toList());
 	}
 
+	private boolean hasUserRole(User user, Role roleName) {
+		return user.getRole() ==roleName;
+	}
+	
 	@Override
 	public UserDto getUserById(int userId) {
 		

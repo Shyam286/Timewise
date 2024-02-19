@@ -94,6 +94,17 @@ public class ProductServiceImpl implements ProductService {
 		return new ApiResponse("Product "+product.getTitle()+" Deleted Successfully.....");
 	}
 
-	
+	@Override
+	public Product updateProductQuantity(int productId, int quantity) {
+	    
+	    Product product = productRepository.findById(productId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+
+	    // Update the quantity
+	    product.setQuantity(quantity);
+
+	    // Save the updated product to the database
+	    return productRepository.save(product);
+	}
 
 }

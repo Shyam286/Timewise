@@ -11,9 +11,9 @@ const CreateProductForm = () => {
         price: '',
         discountedPrice: '',
         quantity: '',
-        img1: '',
-        img2: '',
-        img3: '',
+        image1: '',
+        image2: '',
+        image3: '',
         color: '',
         category: '',
     });
@@ -25,13 +25,14 @@ const CreateProductForm = () => {
             [name]: value,
         });
     };
+    const apiUrl = `http://localhost:8082/api/admin/add`;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             // Send the form data to the backend using Axios
-            const response = await axios.post('/api/products', formData);
+            const response = await axios.post(apiUrl, formData);
 
             // Display a success message using react-toastify
             toast.success('Product created successfully!', {
@@ -51,9 +52,9 @@ const CreateProductForm = () => {
                 price: '',
                 discountedPrice: '',
                 quantity: '',
-                img1: '',
-                img2: '',
-                img3: '',
+                image1: '',
+                image2: '',
+                image3: '',
                 color: '',
                 category: '',
             });
@@ -64,13 +65,27 @@ const CreateProductForm = () => {
         }
     };
 
+
     return (
         <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Create Product Form</h2>
             <form onSubmit={handleSubmit}>
     
                 <div className="grid grid-cols-2 gap-4">
-    
+
+                    {/* Brand */}
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Title:</label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                            required
+                        />
+                    </div>
+
                     {/* Brand */}
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-600">Brand:</label>
@@ -91,6 +106,7 @@ const CreateProductForm = () => {
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
+                            maxLength="250"
                             className="mt-1 p-2 w-full border rounded-md resize-none focus:outline-none focus:ring focus:border-blue-300"
                             required
                         />
@@ -139,8 +155,8 @@ const CreateProductForm = () => {
                         <label className="block text-sm font-medium text-gray-600">Image 1 Link:</label>
                         <input
                             type="text"
-                            name="img1"
-                            value={formData.img1}
+                            name="image1"
+                            value={formData.image1}
                             onChange={handleChange}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                             required
@@ -152,8 +168,8 @@ const CreateProductForm = () => {
                         <label className="block text-sm font-medium text-gray-600">Image 2 Link:</label>
                         <input
                             type="text"
-                            name="img2"
-                            value={formData.img2}
+                            name="image2"
+                            value={formData.image2}
                             onChange={handleChange}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                             required
@@ -164,9 +180,9 @@ const CreateProductForm = () => {
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-600">Image 3 Link:</label>
                         <input
-                            type="text"
-                            name="img3"
-                            value={formData.img3}
+                            type="url"
+                            name="image3"
+                            value={formData.image3}
                             onChange={handleChange}
                             className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                             required
@@ -204,6 +220,7 @@ const CreateProductForm = () => {
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                        
                     >
                         Create Product
                     </button>

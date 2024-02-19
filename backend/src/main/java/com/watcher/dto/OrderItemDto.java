@@ -19,3 +19,10 @@ public class OrderItemDto {
 	
 	private double orderedProductPrice;
 }
+
+/*
+Hibernate: select c1_0.id,c1_0.cart_id,c1_0.discount,c1_0.price,c1_0.product_id,c1_0.quantity from cart_item c1_0 
+              where c1_0.cart_id=? 
+             and c1_0.product_id=?
+
+*/

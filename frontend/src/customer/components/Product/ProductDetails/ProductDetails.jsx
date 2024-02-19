@@ -1,7 +1,7 @@
 import { Button, Rating } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 
 
@@ -17,29 +17,27 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [cartId, setCartId] = useState(null);
 
+  const navigate = useNavigate();
   const quantity =1;
-  //const apiUrl2 =`http://localhost:8082/api/user/cart/${userId}`;
   const apiUrl = `http://localhost:8082/api/public/carts/${cartId}/products/${productId}/quantity/${quantity}`;
 
   const addToCart = async (cartId, productId) => {
-    const localStorageData = JSON.parse(localStorage.getItem('data'));
-    setCartId(localStorageData.cartId);
-   //  const apiUrl = `http://localhost:8082/api/public/carts/${cartId}/products/${productId}`;
+    
      try {
       const response = await axios.post(apiUrl);
       console.log(response.data); 
+      navigate(`/cart/${cartId}`)
     } catch (error) {
       console.error('Error adding product to cart:', error);
     }
   };
-  // useEffect(() =>{
-  //   console.log(localStorage.getItem('cartId'));
-  //   setCartId(localStorage.getItem('cartId'));
-   
-  // },[])
+
+
   useEffect(() => {
     //console.log("-----------------",id)
     // Fetch product details from the backend API based on the productId
+    const localStorageData = JSON.parse(localStorage.getItem('data'));
+    setCartId(localStorageData.cartId);
     axios.get(`http://localhost:8082/api/public/${productId}`)
       .then(response => setProduct(response.data))
       .catch(error => console.error('Error fetching product details', error));
@@ -113,7 +111,7 @@ export default function ProductDetails() {
             <form className="mt-10">
 
               <Button color="secondary" variant="contained" sx={{p:"2rem",py:"1rem"}}
-              onClick={() => addToCart(cartId,productId)}>
+              onClick={() => addToCart(cartId,product.Id)}>
                   Add to Cart
               </Button>
             </form>
