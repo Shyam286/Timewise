@@ -106,8 +106,23 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+
+
 export default function Navigation() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const userDataString = localStorage.getItem('data');
+  const token = localStorage.getItem('token');
+  const userData = userDataString ? JSON.parse(userDataString).user : null;
+
+  // Assume you have a function to handle logout
+  const handleLogout = () => {
+    // Clear user data and token from local storage or perform any other logout actions
+    localStorage.removeItem('data');
+    localStorage.removeItem('token');
+    // Redirect to the sign-in page or any other desired page
+    window.location.href = '/signin';
+  };
 
   
 
@@ -386,16 +401,31 @@ export default function Navigation() {
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a href="/signin" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Sign in
-                  </a>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a href="/signup" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Create account
-                  </a>
+              <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                  {userData ? (
+                    <>
+                      <span className="text-sm font-medium text-gray-700">
+                        Hello {userData.firstname}
+                      </span>
+                      <button
+                        onClick={handleLogout}
+                        className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <a href="/signin" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        Sign in
+                      </a>
+                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                      <a href="/signup" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        Create account
+                      </a>
+                    </>
+                  )}
                 </div>
-
 
 
                 {/* Search */}
