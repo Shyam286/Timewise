@@ -32,7 +32,7 @@ public class AddressServiceImpl implements AddressService{
 	@Override
 	public AddressDTO getAddressDetails(int addressId) {
 		
-		return mapper.map(addressRepository.findById(addressId).orElseThrow(
+		return mapper.map(addressRepository.findByUserId(addressId).orElseThrow(
 				() -> new ResourceNotFoundException("Invalid User  Id Or Address not yet assigned !!!!")),
 				AddressDTO.class);	
 	}

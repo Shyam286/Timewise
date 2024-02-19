@@ -1,0 +1,19 @@
+/* Checkout.css */
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .cart-items {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .total-cost {
+    flex-basis: 300px;
+  }
+  

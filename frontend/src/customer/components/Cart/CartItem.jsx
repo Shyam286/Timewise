@@ -29,21 +29,12 @@ const CartItem = ({ item }) => {
       </div>
 
       <div className="lg:flex items-center lg:space-x-10 pt-4">
-        <div className="flex items-center space-x-2 ">
-          <IconButton>
-            <RemoveCircleOutlineIcon />
-          </IconButton>
 
-          <span className="py-1 px-7 border rounded-sm"></span>
-          <IconButton>
-            <AddCircleOutlineIcon />
-          </IconButton>
-        </div>
       </div>
 
-      <div className="flex text-sm lg:text-base mt-5 lg:mt-0">
+      {/* <div className="flex text-sm lg:text-base mt-5 lg:mt-0">
         <Button>Remove</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const Cart = () => {
     // Add any additional logic or API calls needed before navigating to /checkout
 
     // Navigate to the /checkout page
-    navigate('/checkout');
+    navigate('/add/address');
   };
 
   const apiUrl = `http://localhost:8082/api/public/user/cart/${cartId}`;

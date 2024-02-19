@@ -1,27 +1,45 @@
-import React from 'react'
-import { Grid ,Box , Button ,TextField} from '@mui/material'
-import AddressCard from '../adreess/AdreessCard'
+
+import React from 'react';
+import { Grid, Box, Button, TextField } from '@mui/material';
+import axios from 'axios'; // Import Axios library
+import BasicInfoCard from '../BasicInfo/BasicInfoCard';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const DeliveryAddressForm = () => {
-  
-  const handleSubmit = (event) => {
+
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    
+    const userData = JSON.parse(localStorage.getItem("data"));
+    const userIdTemp = userData.user.id;
     const address = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      streetAddress: data.get("address"),
-      city: data.get("city"),
-      state: data.get("state"),
-      zipCode: data.get("zip"),
-      mobile: data.get("phoneNumber"),
+      userId:  userIdTemp,
+      street: data.get('street'),
+      buildingName: data.get('buildingName'),
+      city: data.get('city'),
+      state: data.get('state'),
+      pincode: data.get('pincode'),
     };
-  
-    console.log("address",address);
-  }
 
-  
+    try {
+      // Make a POST request to your server endpoint with the address data
+      const response = await axios.post('http://localhost:8082/api/public/user/address/add', address);
+      
+      // Handle the response if needed
+      console.log('Server response:', response.data);
+      toast.success("Address added successfully!!");
+      navigate(`/checkout/${userIdTemp}`)
+
+      //${cartId}
+
+    } catch (error) {
+      // Handle errors
+      console.error('Error sending address data:', error.message);
+    }
+  };
+
   return (
     <div>
      <Grid container spacing={4}>
@@ -29,7 +47,7 @@ const DeliveryAddressForm = () => {
         <Grid item xs={12} lg={5}>
             <Box className="border rounded-md shadow-md h-[30.5rem] overflow-y-scroll ">
             <div className="p-5 py-7 border-b cursor-pointer" >
-              <AddressCard />
+              <BasicInfoCard />
               <Button
               sx={{ mt: 2 }}
               size="large"
@@ -43,10 +61,11 @@ const DeliveryAddressForm = () => {
 
         <Grid item xs={12} lg={7}>
         <Box className="border rounded-md shadow-md p-5">
+          <h2 className="p-2">Enter Address:</h2>
           <form onSubmit={handleSubmit} >
             <Grid container spacing={3}>
               
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   id="firstName"
@@ -66,20 +85,30 @@ const DeliveryAddressForm = () => {
                   fullWidth
                   autoComplete="given-name"
                 />
-              </Grid>
+              </Grid> */}
               
               <Grid item xs={12}>
                 <TextField
                   required
-                  id="address"
-                  name="address"
-                  label="Address"
+                  id="street"
+                  name="street"
+                  label="Street"
                   fullWidth
-                  autoComplete="shipping address"
-                  multiline
-                  rows={4}
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  id="buildingName"
+                  name="buildingName"
+                  label="Building Name"
+                  fullWidth
+                />
+              </Grid>
+
+
+
               
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -105,24 +134,14 @@ const DeliveryAddressForm = () => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  id="zip"
-                  name="zip"
-                  label="Zip / Postal code"
+                  id="pincode"
+                  name="pincode"
+                  label="Pincode / Postal code"
                   fullWidth
                   autoComplete="shipping postal-code"
                 />
               </Grid>
-              
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  label="Phone Number"
-                  fullWidth
-                  autoComplete="tel"
-                />
-              </Grid>
+
               
               <Grid item xs={12}>
                 <Button
@@ -142,6 +161,6 @@ const DeliveryAddressForm = () => {
     </Grid>
     </div>
   )
-}
+};
 
-export default DeliveryAddressForm
+export default DeliveryAddressForm;

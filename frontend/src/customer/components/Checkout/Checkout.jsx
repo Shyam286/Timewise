@@ -1,89 +1,116 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useLocation } from 'react-router-dom';
-import OrderSummary from './OrderSummary';
-import DeliveryAddressForm from './DeliveryAddressForm';
+import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import CartItem from '../Cart/CartItem';
 
+const Checkout = () => {
+  const { cartId } = useParams();
+  const [cart, setCart] = useState({ id: 0, userId: 0, name: '', totalPrice: 0, product: [] });
+  const [userAddress, setUserAddress] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const navigate = useNavigate();
 
-const steps = [
-  "Login",
-  "Delivery Adress",
-  "Order Summary",
-  "Payment",
-];
+  const handleCheckout = async () => {
+    // Add any additional logic or API calls needed before navigating to /checkout
 
-export default function Checkout() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const step = queryParams.get('step');
+    // Simulate placing the order
+    // Replace the following line with actual logic or API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
+    // Show the confirmation bar
+    setShowConfirmation(true);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-   
+    // Automatically redirect to homepage after 5 seconds
+    setTimeout(() => {
+      navigate('/');
+    }, 5000);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cartResponse = await axios.get(`http://localhost:8082/api/public/user/cart/${cartId}`);
+        setCart(cartResponse.data);
+
+        // Fetch user address
+        const userId = cartResponse.data.userId;
+        const addressResponse = await axios.get(`http://localhost:8082/api/public/user/address/${userId}`);
+        setUserAddress(addressResponse.data);
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchCart();
+  }, [cartId]);
 
   return (
-   <div>
-   <Box  className="px-5 lg:px-32 " sx={{ width: '100%' }}>
-      <Stepper activeStep={step}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-         
-        </React.Fragment>
-      ) : (
-        
-        
-        
-        <React.Fragment>
-        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-          <Button
-            color="inherit"
-            disabled={step == 2}
-            onClick={handleBack}
-            sx={{ mr: 1 }}
-          >
-            Back
-          </Button>
-          <Box sx={{ flex: "1 1 auto" }} />
+    <div>
+      <div className="lg:grid grid-cols-3 lg:px-16 relative">
+        <div className="lg:col-span-2 lg:px-5 bg-white">
+          {Array.isArray(cart.product) &&
+            cart.product.map((productItem) => (
+              <CartItem key={productItem.id} item={productItem} />
+            ))}
+        </div>
 
-          
-        </Box>
-        <div className="my-5">
-          {step == 2? <DeliveryAddressForm/>:<OrderSummary/>}
-        </div>        
-        </React.Fragment>
+        <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
+          <div className="border p-5 bg-white shadow-lg rounded-md">
+            <div>
+              <h2 className="text-xl font-bold mb-2">Delivery Address</h2>
+              {userAddress && (
+                <div>
+                  <p>{userAddress.street}, {userAddress.buildingName}</p>
+                  <p>{userAddress.city}, {userAddress.state}, {userAddress.country} - {userAddress.pincode}</p>
+                </div>
+              )}
+            </div>
+            <p className="font-bold opacity-60 pb-4">PRICE DETAILS</p>
+            <hr />
 
+            <div className="space-y-3 font-semibold">
+              <div className="flex justify-between pt-3 text-black">
+                <span>Price</span>
+                <span>₹{cart.totalPrice}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Discount</span>
+                <span className="text-green-700">₹--</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Delivery Charges</span>
+                <span className="text-green-700">Free</span>
+              </div>
+              <hr />
+              <div className="flex justify-between font-bold text-lg">
+                <span>Total Amount</span>
+                <span className="text-green-700">₹{cart.totalPrice}</span>
+              </div>
+            </div>
 
+            {!showConfirmation && (
+              <Button
+                variant="contained"
+                onClick={handleCheckout}
+                type="submit"
+                sx={{ padding: ".8rem 2rem", marginTop: "2rem", width: "100%" }}
+              >
+                Place Order
+              </Button>
+            )}
 
-      )}
-    </Box>
-   </div>
-    
+            {showConfirmation && (
+              <div className="bg-green-500 text-white p-4 mt-4 rounded-md">
+                Your order has been placed successfully! Redirecting to homepage...
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default Checkout;
