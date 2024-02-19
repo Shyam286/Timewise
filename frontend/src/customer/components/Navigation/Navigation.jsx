@@ -1,6 +1,8 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import axios from 'axios'
+import ProductCard from '../Product/ProductCard/ProductCard'
 
 const navigation = {
   categories: [
@@ -108,6 +110,21 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
+  // const [data, setData] = useState([])
+
+  // const handleCategories = async (category) => {
+  
+  
+  //   const apiUrl = `http://localhost:8082/api/public/category/${category}`;
+  //   axios.get(apiUrl)
+  //     .then(res => setData(res.data))
+  //     .catch(err => console.log(err));
+
+  //   {data.map((product) => 
+  //     <ProductCard key={product.id} product={product} />
+  //   ) }
+  // }
+  
 
   return (
     <div className="bg-white pb-10">
@@ -156,7 +173,9 @@ export default function Navigation() {
                       {navigation.categories.map((category) => (
                         <Tab
                           key={category.name}
-                          className={({ selected }) =>
+                          // let category = {category.name}
+                          // onClick={() => handleCategories(category)}
+                          className={({ selected }) =>                         
                             classNames(
                               selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900',
                               'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'

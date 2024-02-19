@@ -5,8 +5,8 @@ import HomePage from "../pages/HomePage/HomePage";
 // import Product from "../customer/components/Product/Product";
 import ProductDetails from "../customer/components/Product/ProductDetails/ProductDetails";
 import Cart from "../customer/components/Cart/Cart";
-import AdminPanel from "../Admin/AdminPanel";
-import DemoAdmin from "../Admin/Views/DemoAdmin";
+// import AdminPanel from "../Admin/AdminPanel";
+// import DemoAdmin from "../Admin/Views/DemoAdmin";
 import SignIn from "../pages/LoginPage/SignIn";
 import SignUp from "../pages/LoginPage/SignUp";
 import Checkout from "../customer/components/Checkout/Checkout";
@@ -44,8 +44,8 @@ const Routers = () => {
           <Route path="/ordersummary" element={<OrderSummary />} />
           <Route path="/cartitem" element={<CartItem />} />
           <Route path="/createproduct" element={<CreateProduct />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/demo" element={<DemoAdmin />} />
+          {/* <Route path="/admin" element={<AdminPanel />} /> */}
+          {/* <Route path="/demo" element={<DemoAdmin />} /> */}
           {/* <Route path="/searchbar" element={<SearchBar />} /> */}
           
         </Routes>

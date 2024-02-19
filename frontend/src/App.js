@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CustomerRoutes from "./Routers/CustomerRoutes";
-import AdminPanel from "./Admin/AdminPanel";
+// import AdminPanel from "./Admin/AdminPanel";
 import { useEffect, useState } from "react";
 import Routers from './Routers/Routers';
 import SearchBar from './customer/components/SearchBar/SearchBar';
@@ -40,9 +40,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<Routers/>} />
-          {user?.role === "ADMIN" && (
-            <Route path="/admin/*" element={<AdminPanel />} />
-          )}
+          {/* {user?.role === "ADMIN" && (
+            <Route path="/admin/*" element={<AdminPanel />} 
+            />
+          )} */}
           
         </Routes>
         {/* <div className="search-bar-container"> */}

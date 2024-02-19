@@ -15,9 +15,28 @@ export default function ProductDetails() {
 
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [cartId, setCartId] = useState(null);
 
-  //const id = parseInt(productId, 10)
+  const quantity =1;
+  //const apiUrl2 =`http://localhost:8082/api/user/cart/${userId}`;
+  const apiUrl = `http://localhost:8082/api/public/carts/${cartId}/products/${productId}/quantity/${quantity}`;
 
+  const addToCart = async (cartId, productId) => {
+    const localStorageData = JSON.parse(localStorage.getItem('data'));
+    setCartId(localStorageData.cartId);
+   //  const apiUrl = `http://localhost:8082/api/public/carts/${cartId}/products/${productId}`;
+     try {
+      const response = await axios.post(apiUrl);
+      console.log(response.data); 
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+    }
+  };
+  // useEffect(() =>{
+  //   console.log(localStorage.getItem('cartId'));
+  //   setCartId(localStorage.getItem('cartId'));
+   
+  // },[])
   useEffect(() => {
     //console.log("-----------------",id)
     // Fetch product details from the backend API based on the productId
@@ -93,10 +112,9 @@ export default function ProductDetails() {
 
             <form className="mt-10">
 
-              <Button color="secondary" variant="contained" sx={{p:"2rem",py:"1rem"}}>
-              <Link to="/cart" className="btn btn-primary">
+              <Button color="secondary" variant="contained" sx={{p:"2rem",py:"1rem"}}
+              onClick={() => addToCart(cartId,productId)}>
                   Add to Cart
-              </Link>
               </Button>
             </form>
           </div>
