@@ -19,7 +19,7 @@ import lombok.ToString;
 public class AddressDTO {
 	
 	
-	private Long addressId;
+	private int id;
 	
 	private String street;
 	

@@ -117,18 +117,35 @@ public class CartServiceImpl implements CartService {
 		
 	}
 	
+//	@Override
+//	public CartDto getCartById(int cartId) {
+//		System.out.println("-------"+1);
+//		Cart cart = cartRepository.findById(cartId)
+//				.orElseThrow(() -> new CartNotFoundException("Cart Not Found"));
+//		System.out.println(cart);
+//
+//		CartDto cartDto = mapper.map(cart, CartDto.class);
+//		System.out.println(cartDto);
+//		cartDto.setProduct(convertProducts(cart.getCartItem()));
+//		cartDto.setUserId(cart.getUser().getId());
+//		cartDto.setName(cart.getUser().getFirstname());
+//	
+//		return cartDto;
+//	}
+	
 	@Override
 	public CartDto getCartById(int cartId) {
 		Cart cart = cartRepository.findById(cartId)
-				.orElseThrow(() -> new CartNotFoundException("Cart Not Found"));
-		System.out.println(cart);
+				.orElseThrow(() -> new ResourceNotFoundException("Cart Not Found"));
+		
+		            
+		CartDto cartDto = mapper.map(cartRepository.findById(cartId), CartDto.class);
+		
+		List<ProductDto> products = cart.getCartItem().stream()
+				.map(p -> mapper.map(p.getProduct(), ProductDto.class)).collect(Collectors.toList());
 
-		CartDto cartDto = mapper.map(cart, CartDto.class);
-		System.out.println(cartDto);
-		cartDto.setProduct(convertProducts(cart.getCartItem()));
-		cartDto.setUserId(cart.getUser().getId());
-		cartDto.setName(cart.getUser().getFirstname());
-	
+		cartDto.setProduct(products);
+
 		return cartDto;
 	}
 
