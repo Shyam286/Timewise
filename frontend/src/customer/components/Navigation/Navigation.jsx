@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -82,7 +82,7 @@ const navigation = {
             { name: 'Browse All', href: '#' },
           ],
         },
-        
+
         {
           id: 'brands',
           name: 'Brands',
@@ -111,9 +111,12 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+
+
   const userDataString = localStorage.getItem('data');
   const token = localStorage.getItem('token');
   const userData = userDataString ? JSON.parse(userDataString).user : null;
+
 
   // Assume you have a function to handle logout
   const handleLogout = () => {
@@ -124,7 +127,7 @@ export default function Navigation() {
     window.location.href = '/signin';
   };
 
-  
+
 
   return (
     <div className="bg-white pb-10">
@@ -175,7 +178,7 @@ export default function Navigation() {
                           key={category.name}
                           // let category = {category.name}
                           // onClick={() => handleCategories(category)}
-                          className={({ selected }) =>                         
+                          className={({ selected }) =>
                             classNames(
                               selected ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-900',
                               'flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium'
@@ -212,7 +215,7 @@ export default function Navigation() {
                             <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
                               {section.name}
                             </p>
-                            <ul 
+                            <ul
                               role="list"
                               aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
                               className="mt-6 flex flex-col space-y-6"
@@ -401,7 +404,17 @@ export default function Navigation() {
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
-              <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+
+                {userData && userData.role === 'ADMIN' && (
+                  <div className="px-10 ml-4 flow-root lg:ml-6">
+                    <a href="/admin" className="group -m-2 flex items-center p-2">
+                      {/* Add your icon or label for the admin panel button here */}
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">Admin Panel</span>
+                    </a>
+                  </div>
+                )}
+
+                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {userData ? (
                     <>
                       <span className="text-sm font-medium text-gray-700">
@@ -428,25 +441,32 @@ export default function Navigation() {
                 </div>
 
 
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <a href="/searchbar" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                  </a>
-                </div>
 
-                {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a>
-                </div>
+                {userData ? (
+                  <div className="ml-4 flow-root lg:ml-6">
+                    <a href={`/cart/${userData.id}`} className="group -m-2 flex items-center p-2">
+                      <ShoppingBagIcon
+                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"></span>
+                      <span className="sr-only">items in cart, view bag</span>
+                    </a>
+                  </div>
+                ) : (
+                  <div className="ml-4 flow-root lg:ml-6">
+                    <a href="/signin" className="group -m-2 flex items-center p-2">
+                      <ShoppingBagIcon
+                        className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                        aria-hidden="true"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"></span>
+                      <span className="sr-only">items in cart, view bag</span>
+                    </a>
+                  </div>
+                )}
+
+
               </div>
             </div>
           </div>

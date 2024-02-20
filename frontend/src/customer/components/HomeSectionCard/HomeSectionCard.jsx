@@ -26,6 +26,7 @@ const HomeSectionCard = ({ product }) => {
         <div className='flex items-center space-x-2'>
           <p className="font-semibold">₹{product.discountedPrice}</p>
           <p className="line-through opacity-50">₹{product.price}</p>
+          <p className="font-semibold text-lg text-green-600">{Math.floor(((product.price-product.discountedPrice)/product.price)*100)}% off</p>
         </div>
       </div>
     </div>

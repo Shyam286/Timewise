@@ -1,19 +1,16 @@
-import * as React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
-import CustomerRoutes from "./Routers/CustomerRoutes";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import CustomerRoutes from './Routers/CustomerRoutes';
 import Routers from './Routers/Routers';
-import SearchBar from './customer/components/SearchBar/SearchBar';
-import SearchResultsList from './customer/components/SearchBar/SearchResultList';
-import SearchResultList from './customer/components/SearchBar/SearchResultList';
 import Admin from './Admin/Admin';
-//import SearchResultsList from './customer/components/SearchBar/SearchResultsList'; // Import SearchResultsList
 
 function App() {
   const [user, setUser] = useState(null);
-  const [results, setResults] = useState(null); // Define results state
-  const jwt = localStorage.getItem("jwtTokenData");
+  const jwt = localStorage.getItem('jwtTokenData');
+
+  // Retrieve userData directly from localStorage
+  const userData = JSON.parse(localStorage.getItem('data'));
 
   useEffect(() => {
     const fetchUserData = async (jwt) => {
@@ -21,8 +18,10 @@ function App() {
         const response = await fetch(`/api/user/${jwt}`);
         const userData = await response.json();
         setUser(userData);
+        // Save userData to localStorage
+        localStorage.setItem('userData', JSON.stringify(userData));
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -39,28 +38,12 @@ function App() {
     <div className="">
       <BrowserRouter>
         <Routes>
-          <Route path="/*" element={<Routers/>} />
-
-          //commented for demo purposes
-          {/* {user?.role === "ADMIN" && (
-            <Route path="/admin/*" element={<Admin />} />
-          )}
-           */}
-            <Route path="/admin/*" element={<Admin />} />
+          {userData && userData.user.role == 'ADMIN' && <Route path="/admin/*" element={<Admin />} />}
+          <Route path="/*" element={<Routers />} />
         </Routes>
-
-
       </BrowserRouter>
     </div>
   );
 }
 
 export default App;
-
-
-        // //not needed search result
-        // <div className="search-bar-container">
-        //   <SearchBar setResults={setResults} /> {/* Pass setResults as prop */}
-        //   {results && results.length > 0 && <SearchResultList results={results} />} {/* Render SearchResultsList conditionally */}
-        // </div>
-        
