@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.watcher.custom_exception.ApiException;
+import com.watcher.custom_exception.CartNotFoundException;
+import com.watcher.custom_exception.OrderNotFoundException;
 import com.watcher.custom_exception.ResourceNotFoundException;
 import com.watcher.dto.OrderDto;
 import com.watcher.dto.OrderItemDto;
@@ -59,7 +61,7 @@ public class OrderServiceImpl implements OrderService{
 	public OrderDto placeOrder(String emailId, int cartId, String paymentMethod) {
 		System.out.println("1--------------------------"+cartId);
 		Cart cart = cartRepository.findById(cartId)
-				.orElseThrow(()-> new ResourceNotFoundException("Cart Not Found"));
+				.orElseThrow(()-> new CartNotFoundException("Cart Not Found"));
 
 
 		Order order = new Order();
@@ -132,7 +134,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = orderRepository.findOrderByEmailAndId(emailId, orderId);
 
 		if (order == null) {
-			throw new ResourceNotFoundException("OrderId"+orderId);
+			throw new OrderNotFoundException("OrderId"+orderId);
 		}
 
 		OrderDto orderDTO = mapper.map(order, OrderDto.class);
@@ -188,7 +190,7 @@ public class OrderServiceImpl implements OrderService{
 		Order order = orderRepository.findOrderByEmailAndId(emailId, orderId);
 
 		if (order == null) {
-			throw new ResourceNotFoundException("OrderId"+orderId);
+			throw new OrderNotFoundException("OrderId"+orderId);
 		}
 
 		order.setOrderStatus(orderStatus);
@@ -205,4 +207,9 @@ public class OrderServiceImpl implements OrderService{
 	            })
 	            .collect(Collectors.toList());
 	}
+	
+	 public long getNumberOfOrders() {
+	        // Using the count() method from JpaRepository to get the number of orders
+	        return orderRepository.count();
+	    }
 }
