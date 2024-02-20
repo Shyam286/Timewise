@@ -15,6 +15,8 @@ import com.watcher.entity.Address;
 import com.watcher.entity.User;
 import com.watcher.repository.AddressRepository;
 import com.watcher.repository.UserRepository;
+import java.util.List;
+
 
 
 @Service
@@ -33,10 +35,14 @@ public class AddressServiceImpl implements AddressService{
 	@Override
 	public AddressDTO getAddressDetails(int userId) {
 		
+		 List<Address> addresses = addressRepository.findByUserId(userId);
 
-		return mapper.map(addressRepository.findById(userId).orElseThrow(
-				() -> new AddressNotFoundException("Invalid User  Id Or Address not yet assigned !!!!")),
-				AddressDTO.class);	
+		    if (addresses.isEmpty()) {
+		        throw new AddressNotFoundException("No address found for the user");
+		    }
+		    Address address = addresses.get(addresses.size() - 1);
+
+		    return mapper.map(address, AddressDTO.class);
 	}
 	
 	@Override

@@ -24,6 +24,7 @@ import com.watcher.entity.OrderItem;
 import com.watcher.entity.Payment;
 import com.watcher.entity.Product;
 import com.watcher.entity.User;
+import com.watcher.repository.CartItemRepository;
 import com.watcher.repository.CartRepository;
 import com.watcher.repository.OrderItemRepository;
 import com.watcher.repository.OrderRepository;
@@ -54,6 +55,8 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private CartService cartService;
 	
+	@Autowired
+	CartItemRepository cartItemRepository;
 	@Autowired
 	public ModelMapper mapper;
 	
@@ -125,9 +128,14 @@ public class OrderServiceImpl implements OrderService{
 //		orderDTO.setOrderProduct(convertProducts(order.getOrderItems()));
 		orderDTO.setEmail(order.getEmail());
 
+		deleteAllCartItemsByCartId(cart.getId());
+		
 		return orderDTO;
 	}
-
+	public void deleteAllCartItemsByCartId(int cartId) {
+        System.out.println("------------------------------");
+		cartItemRepository.deleteByCartId(cartId);
+    }
 	@Override
 	public OrderDto getOrder(String emailId, int orderId) {
 		
