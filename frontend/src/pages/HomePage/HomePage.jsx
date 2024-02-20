@@ -9,6 +9,7 @@ const HomePage = () => {
   //const[category,setCategory] = useState(MEN_WATCHES);
   const [cat1, setCat1]= useState([])
   const [cat2, setCat2]= useState([])
+  const [cat3, setCat3]= useState([])
 
 
   const category1 = "MEN_WATCHES";
@@ -17,6 +18,8 @@ const HomePage = () => {
   const category2 = "ANALOG_WATCHES";
   const apiUrl2 = `http://localhost:8082/api/public/category/${category2}`;
 
+  const category3 = "DIGITAL_WATCHES";
+  const apiUrl3 = `http://localhost:8082/api/public/category/${category3}`;
   useEffect(()=>{
     axios.get(apiUrl)
     .then(res => setCat1(res.data))
@@ -27,16 +30,19 @@ const HomePage = () => {
     .then(res => setCat2(res.data))
     .catch(err => console.log(err));
   },[])
+  useEffect(()=>{
+    axios.get(apiUrl3)
+    .then(res => setCat3(res.data))
+    .catch(err => console.log(err));
+  },[])
    
   return (
     <div>
       <MainCarousel className="-z-50"/>
       <div className="space-y-10 py-10 px-5 lg:px-10">
-        <HomeSectionCarousel data={cat1} sectionName={"Men's Watches"}/>
+        {/* <HomeSectionCarousel data={cat1} sectionName={"Digital Watches"}/> */}
         <HomeSectionCarousel data={cat2} sectionName={"Analog Watches"}/>
-        <HomeSectionCarousel data={mens_watches} sectionName={"Men's Watches"}/>
-        <HomeSectionCarousel data={mens_watches} sectionName={"Men's Watches"}/>
-        <HomeSectionCarousel data={mens_watches} sectionName={"Men's Watches"}/>
+        <HomeSectionCarousel data={cat3} sectionName={"Digital Watches"}/>
       </div>
     </div>
     
