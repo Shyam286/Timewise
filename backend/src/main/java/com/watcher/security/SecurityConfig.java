@@ -40,11 +40,11 @@ public class SecurityConfig {
 			"/view",
 			"/v*/api-doc*/**",
 			"/swagger-ui/**",
-			"/api/user/**",
+//			"/api/user/**",
 			
-			"/api/admin/**",
+//			"/api/admin/**",
 			"/api/public/**",
-			"api/admin/**"
+//			"api/admin/**"
 //			"/order/**",
 //			"/address/**",
 //			"/cart/**",
@@ -52,17 +52,17 @@ public class SecurityConfig {
 	};
 	
 	public static final String[] ADMIN_URLS= {
-//			"/api/admin/**",
-//			"/api/product/update/**",
-//			"/api/product/add",
-//			"/api/product/delete/**",
-//			"/api/order/admin/**",
-//			"/api/cart/admin/**",
-//			"/api/user/demo"
+			"/api/admin/**",
+			"/api/product/update/**",
+			"/api/product/add",
+			"/api/product/delete/**",
+			"/api/order/admin/**",
+			"/api/cart/admin/**",
+			"/api/user/demo"
 	};
 	public static final String[] USER_URLS= {
-//			"/api/public/**",
-//			"/api/user/**"
+			"/api/public/**",
+			"/api/user/**"
 	};
 
 //	private AuthenticationProvider authenticationProvider;
@@ -81,8 +81,8 @@ public class SecurityConfig {
          	.authorizeHttpRequests(req ->
              req.requestMatchers(PUBLIC_URLS)
 				.permitAll()
-//				.requestMatchers(USER_URLS).hasAnyAuthority("USER", "ADMIN")
-//				.requestMatchers(ADMIN_URLS).hasAuthority("ADMIN")
+				.requestMatchers(USER_URLS).hasAnyAuthority("USER", "ADMIN")
+				.requestMatchers(ADMIN_URLS).hasAuthority("ADMIN")
 				.anyRequest()
 				.authenticated()
 			)
@@ -94,7 +94,6 @@ public class SecurityConfig {
 
 	}
 		
-	// 
 	@Bean
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthProvider =new DaoAuthenticationProvider();
